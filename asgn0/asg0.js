@@ -37,3 +37,30 @@ function drawVector(v, color){
   ctx.lineTo(centerX + v.elements[0] * 20, centerY - v.elements[1] * 20);
   ctx.stroke();
 }
+
+function handleDrawEvent(){
+  var canvas = document.getElementById('example');
+  var ctx = canvas.getContext('2d');
+
+  // clear canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // redraw the canvas
+  ctx.fillStyle = 'rgba(0, 0, 0, 1.0)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
+  // Read values of the input x and y of v1
+  let v1X = document.getElementById('x-name').value;
+  let v1Y = document.getElementById('y-name').value;
+  console.log(v1X);
+  console.log(v1Y);
+
+  // Create v1 and draw the vector
+  var v1 = new Vector3();
+  v1.elements[0] = v1X;
+  v1.elements[1]= v1Y;
+  v1.elements[2]= 0;
+
+  drawVector(v1, "red");
+
+}
