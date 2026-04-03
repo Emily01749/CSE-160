@@ -53,7 +53,7 @@ class Vector3 {
         for(var i = 0; i < 2; i++){
           console.log(this.elements[i]);
 
-          this.elements[i] = this.elements[i] + other;
+          this.elements[i] = other + this.elements[i];
 
         }
 
@@ -77,7 +77,7 @@ class Vector3 {
         for(var i = 0; i < 2; i++){
           console.log(this.elements[i]);
 
-          this.elements[i] = this.elements[i] - other;
+          this.elements[i] = other - this.elements[i];
 
         }
 
