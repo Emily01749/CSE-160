@@ -50,10 +50,14 @@ function handleDrawEvent(){
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   
   // Read values of the input x and y of v1
-  let v1X = document.getElementById('x-name').value;
-  let v1Y = document.getElementById('y-name').value;
-  console.log(v1X);
-  console.log(v1Y);
+  let v1X = document.getElementById('v1x-name').value;
+  let v1Y = document.getElementById('v1y-name').value;
+
+  let v2X = document.getElementById('v2x-name').value;
+  let v2Y = document.getElementById('v2y-name').value;
+  
+  //console.log(v1X);
+  //console.log(v1Y);
 
   // Create v1 and draw the vector
   var v1 = new Vector3();
@@ -62,5 +66,13 @@ function handleDrawEvent(){
   v1.elements[2]= 0;
 
   drawVector(v1, "red");
+
+  // Create v2 and draw the vector
+  var v2 = new Vector3();
+  v2.elements[0] = v2X;
+  v2.elements[1]= v2Y;
+  v2.elements[2]= 0;
+
+  drawVector(v2, "blue");
 
 }
