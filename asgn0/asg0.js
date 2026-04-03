@@ -114,9 +114,9 @@ function handleDrawOperationEvent(){
   drawVector(v2, "blue");
 
   var optSelect = document.getElementById('operation')
-  console.log(optSelect.value);
+  //console.log(optSelect.value);
   var scal = document.getElementById('scalar-num').value;
-  console.log(scal);
+  //console.log(scal);
 
   // Create v3 and draw the vector
   var v3 = new Vector3();
@@ -173,9 +173,22 @@ function handleDrawOperationEvent(){
     drawVector(v1, "green");
     drawVector(v2, "green");
   }
+  if(optSelect.value == "AngleBetween"){
+    //console.log("Dot: " + Vector3.dot(v1, v2));
+    console.log("Angle: " + angleBetween(v1, v2));
+  }
 
+}
 
+function angleBetween(v1,v2){
+  var dotprd = Vector3.dot(v1,v2);
+  console.log("Dotdotprd: " + dotprd);
+  var mag = v1.magnitude() * v2.magnitude();
+  console.log("Mag: " + mag);
+  var theta = Math.acos(dotprd / mag);
+  console.log("Theta: " + theta);
 
+  var thetaInDegrees = theta * (180/Math.PI);
 
-
+  return thetaInDegrees;
 }
