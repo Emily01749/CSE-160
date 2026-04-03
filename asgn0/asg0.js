@@ -162,6 +162,17 @@ function handleDrawOperationEvent(){
     drawVector(v4, "green");
 
   }
+  if(optSelect.value == "Magnitude"){
+    console.log("Magnitude v1: " + v1.magnitude());
+    console.log("Magnitude v2: " + v2.magnitude());
+  }
+  if(optSelect.value == "Normalize"){
+    v1 = v1.normalize();
+    v2 = v2.normalize();
+
+    drawVector(v1, "green");
+    drawVector(v2, "green");
+  }
 
 
 
