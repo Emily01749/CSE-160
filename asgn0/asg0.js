@@ -115,6 +115,8 @@ function handleDrawOperationEvent(){
 
   var optSelect = document.getElementById('operation')
   console.log(optSelect.value);
+  var scal = document.getElementById('scalar-num').value;
+  console.log(scal);
 
   // Create v3 and draw the vector
   var v3 = new Vector3();
@@ -131,6 +133,36 @@ function handleDrawOperationEvent(){
 
     drawVector(v3, "green");
   }
+
+  // Create v4
+  var v4 = new Vector3();
+
+  if(optSelect.value == 'Multiply'){
+    v3 = v1.mul(scal);
+    console.log(v3);
+
+    drawVector(v3, "green");
+
+    v4 = v2.mul(scal);
+    console.log(v4);
+
+    drawVector(v4, "green");
+
+  }
+
+  if(optSelect.value == 'Divide'){
+    v3 = v1.div(scal);
+    console.log(v3);
+
+    drawVector(v3, "green");
+
+    v4 = v2.div(scal);
+    console.log(v4);
+
+    drawVector(v4, "green");
+
+  }
+
 
 
 
