@@ -53,6 +53,7 @@ function handleDrawEvent(){
   let v1X = document.getElementById('v1x-name').value;
   let v1Y = document.getElementById('v1y-name').value;
 
+  // Read values of the input x and y of v2
   let v2X = document.getElementById('v2x-name').value;
   let v2Y = document.getElementById('v2y-name').value;
   
@@ -74,5 +75,64 @@ function handleDrawEvent(){
   v2.elements[2]= 0;
 
   drawVector(v2, "blue");
+
+}
+
+function handleDrawOperationEvent(){
+  var canvas = document.getElementById('example');
+  var ctx = canvas.getContext('2d');
+  
+  // clear canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // redraw the canvas
+  ctx.fillStyle = 'rgba(0, 0, 0, 1.0)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Read values of the input x and y of v1
+  let v1X = document.getElementById('v1x-name').value;
+  let v1Y = document.getElementById('v1y-name').value;
+
+  // Read values of the input x and y of v2
+  let v2X = document.getElementById('v2x-name').value;
+  let v2Y = document.getElementById('v2y-name').value;
+
+  // Create v1 and draw the vector
+  var v1 = new Vector3();
+  v1.elements[0] = v1X;
+  v1.elements[1]= v1Y;
+  v1.elements[2]= 0;
+
+  drawVector(v1, "red");
+
+  // Create v2 and draw the vector
+  var v2 = new Vector3();
+  v2.elements[0] = v2X;
+  v2.elements[1]= v2Y;
+  v2.elements[2]= 0;
+
+  drawVector(v2, "blue");
+
+  var optSelect = document.getElementById('operation')
+  console.log(optSelect.value);
+
+  // Create v3 and draw the vector
+  var v3 = new Vector3();
+
+  if(optSelect.value == 'Add'){
+    v3 = v1.add(v2);
+    console.log(v3);
+
+    drawVector(v3, "green");
+  }
+  if(optSelect.value == 'Subtract'){
+    v3 = v1.sub(v2);
+    console.log(v3);
+
+    drawVector(v3, "green");
+  }
+
+
+
 
 }
