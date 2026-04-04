@@ -192,7 +192,7 @@ class Vector3 {
       */
     magnitude() {
         // Insert your code here.
-        let m = Math.sqrt((this.elements[0]**2) + (this.elements[1])**2); // Modify this line to calculate this vector's magnitude.
+        let m = Math.sqrt((this.elements[0]**2) + (this.elements[1]**2) + (this.elements[2]**2)); // Modify this line to calculate this vector's magnitude.
 
         // Don't delete the return statement.
         return m;
