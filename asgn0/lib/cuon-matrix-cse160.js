@@ -205,11 +205,13 @@ class Vector3 {
     normalize() {
         // Insert your code here.
         // This function should change this vector (this.elements) and not create a new vector.
+
+        let mag = this.magnitude();
           
         for(var i = 0; i < 3; i++){
           console.log(this.elements[i]);
 
-          this.elements[i] = this.elements[i] / this.magnitude();
+          this.elements[i] = this.elements[i] / mag;
 
         }
         // Don't delete the return statement.
