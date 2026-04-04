@@ -177,6 +177,9 @@ function handleDrawOperationEvent(){
     //console.log("Dot: " + Vector3.dot(v1, v2));
     console.log("Angle: " + angleBetween(v1, v2));
   }
+  if(optSelect.value == "Area"){
+    console.log("Area of the triangle: ", areaTriangle(v1, v2));
+  }
 
 }
 
@@ -191,4 +194,10 @@ function angleBetween(v1,v2){
   var thetaInDegrees = theta * (180/Math.PI);
 
   return thetaInDegrees;
+}
+
+function areaTriangle(v1, v2){
+  let crossProd = Vector3.cross(v1, v2);
+  console.log("Cross: ", crossProd);
+  return crossProd.magnitude() / 2;
 }
