@@ -14,10 +14,10 @@ function main() {
   ctx.fillStyle = 'rgba(0, 0, 0, 1.0)'; // Set color to black
   ctx.fillRect(0, 0, canvas.width, canvas.height); // Fill a rectangle with the color
   
-  var v1 = new Vector3();
-  v1.elements[0] = 2.25;
-  v1.elements[1]= 2.25;
-  v1.elements[2]= 0;
+  var v1 = new Vector3([2.25, 2.25, 0]);
+  //v1.elements[0] = 2.25;
+  //v1.elements[1]= 2.25;
+  //v1.elements[2]= 0;
 
   //console.log(v1);
 
@@ -61,18 +61,18 @@ function handleDrawEvent(){
   //console.log(v1Y);
 
   // Create v1 and draw the vector
-  var v1 = new Vector3();
-  v1.elements[0] = v1X;
-  v1.elements[1]= v1Y;
-  v1.elements[2]= 0;
+  var v1 = new Vector3([v1X, v1Y, 0]);
+  //v1.elements[0] = v1X;
+  //v1.elements[1]= v1Y;
+  //v1.elements[2]= 0;
 
   drawVector(v1, "red");
 
   // Create v2 and draw the vector
-  var v2 = new Vector3();
-  v2.elements[0] = v2X;
-  v2.elements[1]= v2Y;
-  v2.elements[2]= 0;
+  var v2 = new Vector3([v2X, v2Y, 0]);
+  //v2.elements[0] = v2X;
+  //v2.elements[1]= v2Y;
+  //v2.elements[2]= 0;
 
   drawVector(v2, "blue");
 
@@ -98,18 +98,18 @@ function handleDrawOperationEvent(){
   let v2Y = document.getElementById('v2y-name').value;
 
   // Create v1 and draw the vector
-  var v1 = new Vector3();
-  v1.elements[0] = v1X;
-  v1.elements[1]= v1Y;
-  v1.elements[2]= 0;
+  var v1 = new Vector3([v1X, v1Y, 0]);
+  //v1.elements[0] = v1X;
+  //v1.elements[1]= v1Y;
+  //v1.elements[2]= 0;
 
   drawVector(v1, "red");
 
   // Create v2 and draw the vector
-  var v2 = new Vector3();
-  v2.elements[0] = v2X;
-  v2.elements[1]= v2Y;
-  v2.elements[2]= 0;
+  var v2 = new Vector3([v2X, v2Y, 0]);
+  //v2.elements[0] = v2X;
+  //v2.elements[1]= v2Y;
+  //v2.elements[2]= 0;
 
   drawVector(v2, "blue");
 
