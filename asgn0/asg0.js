@@ -15,12 +15,6 @@ function main() {
   ctx.fillRect(0, 0, canvas.width, canvas.height); // Fill a rectangle with the color
   
   var v1 = new Vector3([2.25, 2.25, 0]);
-  //v1.elements[0] = 2.25;
-  //v1.elements[1]= 2.25;
-  //v1.elements[2]= 0;
-
-  //console.log(v1);
-
   drawVector(v1, "red");
 }
 
@@ -56,24 +50,13 @@ function handleDrawEvent(){
   // Read values of the input x and y of v2
   let v2X = document.getElementById('v2x-name').value;
   let v2Y = document.getElementById('v2y-name').value;
-  
-  //console.log(v1X);
-  //console.log(v1Y);
 
   // Create v1 and draw the vector
   var v1 = new Vector3([v1X, v1Y, 0]);
-  //v1.elements[0] = v1X;
-  //v1.elements[1]= v1Y;
-  //v1.elements[2]= 0;
-
   drawVector(v1, "red");
 
   // Create v2 and draw the vector
   var v2 = new Vector3([v2X, v2Y, 0]);
-  //v2.elements[0] = v2X;
-  //v2.elements[1]= v2Y;
-  //v2.elements[2]= 0;
-
   drawVector(v2, "blue");
 
 }
@@ -99,38 +82,24 @@ function handleDrawOperationEvent(){
 
   // Create v1 and draw the vector
   var v1 = new Vector3([v1X, v1Y, 0]);
-  //v1.elements[0] = v1X;
-  //v1.elements[1]= v1Y;
-  //v1.elements[2]= 0;
-
   drawVector(v1, "red");
 
   // Create v2 and draw the vector
   var v2 = new Vector3([v2X, v2Y, 0]);
-  //v2.elements[0] = v2X;
-  //v2.elements[1]= v2Y;
-  //v2.elements[2]= 0;
-
   drawVector(v2, "blue");
 
   var optSelect = document.getElementById('operation')
-  //console.log(optSelect.value);
   var scal = document.getElementById('scalar-num').value;
-  //console.log(scal);
 
   // Create v3 and draw the vector
   var v3 = new Vector3();
 
   if(optSelect.value == 'Add'){
     v3 = v1.add(v2);
-    //console.log(v3);
-
     drawVector(v3, "green");
   }
   if(optSelect.value == 'Subtract'){
     v3 = v1.sub(v2);
-    //console.log(v3);
-
     drawVector(v3, "green");
   }
 
@@ -139,26 +108,18 @@ function handleDrawOperationEvent(){
 
   if(optSelect.value == 'Multiply'){
     v3 = v1.mul(scal);
-    //console.log(v3);
-
     drawVector(v3, "green");
 
     v4 = v2.mul(scal);
-    //console.log(v4);
-
     drawVector(v4, "green");
 
   }
 
   if(optSelect.value == 'Divide'){
     v3 = v1.div(scal);
-    //console.log(v3);
-
     drawVector(v3, "green");
 
     v4 = v2.div(scal);
-    //console.log(v4);
-
     drawVector(v4, "green");
 
   }
@@ -174,7 +135,6 @@ function handleDrawOperationEvent(){
     drawVector(v2, "green");
   }
   if(optSelect.value == "AngleBetween"){
-    //console.log("Dot: " + Vector3.dot(v1, v2));
     console.log("Angle: " + angleBetween(v1, v2));
   }
   if(optSelect.value == "Area"){
@@ -185,12 +145,8 @@ function handleDrawOperationEvent(){
 
 function angleBetween(v1,v2){
   var dotprd = Vector3.dot(v1,v2);
-  //console.log("Dotdotprd: " + dotprd);
   var mag = v1.magnitude() * v2.magnitude();
-  //console.log("Mag: " + mag);
   var theta = Math.acos(dotprd / mag);
-  //console.log("Theta: " + theta);
-
   var thetaInDegrees = theta * (180/Math.PI);
 
   return thetaInDegrees;
@@ -198,6 +154,5 @@ function angleBetween(v1,v2){
 
 function areaTriangle(v1, v2){
   let crossProd = Vector3.cross(v1, v2);
-  //console.log("Cross: ", crossProd);
   return crossProd.magnitude() / 2;
 }
