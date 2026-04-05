@@ -47,19 +47,19 @@ class Vector3 {
         // Insert your code here.
         // This function should change this vector (this.elements) and not create a new vector.
         
-        console.log(this.elements);
-        console.log(other);
+        //console.log(this.elements);
+        //console.log(other);
 
 
         for(var i = 0; i < 3; i++){
-          console.log(this.elements[i]);
-          console.log(other.elements[i]);
+          //console.log(this.elements[i]);
+          //console.log(other.elements[i]);
 
           this.elements[i] = other.elements[i] + this.elements[i];
 
         }
 
-        console.log(this.elements);
+        //console.log(this.elements);
 
         // Don't delete the return statement.
         return this;
@@ -99,17 +99,17 @@ class Vector3 {
         // Insert your code here.
         // This function should change this vector (this.elements) and not create a new vector.
         
-        console.log(this.elements);
+        //console.log(this.elements);
 
 
         for(var i = 0; i < 3; i++){
-          console.log(this.elements[i]);
+          //console.log(this.elements[i]);
 
           this.elements[i] = this.elements[i] / scalar;
 
         }
 
-        console.log(this.elements);
+        //console.log(this.elements);
 
         // Don't delete the return statement.
         return this;
@@ -123,17 +123,17 @@ class Vector3 {
         // Insert your code here.
         // This function should change this vector (this.elements) and not create a new vector.
 
-        console.log(this.elements);
+        //console.log(this.elements);
 
 
         for(var i = 0; i < 3; i++){
-          console.log(this.elements[i]);
+          //console.log(this.elements[i]);
 
           this.elements[i] = this.elements[i] * scalar;
 
         }
 
-        console.log(this.elements);
+        //console.log(this.elements);
 
         // Don't delete the return statement.
         return this;
@@ -209,7 +209,7 @@ class Vector3 {
         let mag = this.magnitude();
           
         for(var i = 0; i < 3; i++){
-          console.log(this.elements[i]);
+          //console.log(this.elements[i]);
 
           this.elements[i] = this.elements[i] / mag;
 
