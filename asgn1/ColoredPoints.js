@@ -123,22 +123,13 @@ function addUI(){
     g_circleSegmentNum = this.value;
   })
 
+  document.getElementById('opacitySlide').addEventListener('mouseup', function() {
+    g_selectedColor[3] = this.value/100;
+  })
   
   document.getElementById('art').addEventListener('mouseup', function() {
     console.log("art button");
-    /*
-    <path id="shape0" 
-    transform="translate(457.387580299786, 310.920770877944)" 
-    fill="none" stroke="#000000" stroke-width="3" stroke-linecap="square" stroke-linejoin="bevel" 
-    d="M199.968 236.403L0 23.1263L339.186 0Z" 
-    sodipodi:nodetypes="cccc"/><path id="shape1" 
-    transform="translate(452.248394004283, 195.289079229122)" 
-    fill="none" stroke="#000000" stroke-width="3" stroke-linecap="square" stroke-linejoin="bevel" 
-    d="M0 141.328L56.531 0L151.606 131.049Z" sodipodi:nodetypes="cccc"/><path id="shape2" 
-    transform="translate(696.359743040685, 172.162740899358)" 
-    fill="none" stroke="#000000" stroke-width="3" stroke-linecap="square" stroke-linejoin="bevel" 
-    d="M0 143.897L56.531 0L105.353 141.328Z" sodipodi:nodetypes="cccc"/>
-    */
+
     let t;
     let scale = 1500;
     let drawingPts = [
@@ -290,6 +281,10 @@ function renderAllShapes(){
   gl.clear(gl.COLOR_BUFFER_BIT);
 
   var len = g_shapesList.length;
+
+  gl.enable(gl.BLEND)
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+  gl.disable(gl.DEPTH_TEST);
 
   for(var i = 0; i < len; i++) {
     //console.log("nope");
