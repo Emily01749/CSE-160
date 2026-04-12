@@ -6,29 +6,47 @@
   </head>
 
   <body onload="main()">
-    <canvas id="webgl" width="400" height="400">
-    Please use a browser that supports "canvas"
-    </canvas>
+    <style>
+      .container {
+        display: flex;
+      }
+      .container div {
+        margin: 10px;
+      }
 
-    <img src="drawingFoxReference.jpg" style="max-width: 300px" >
+    </style>
 
+    <div class="container"> 
+      <div style="display: inline-block"> 
+        <canvas id="webgl" width="400" height="400">
+        Please use a browser that supports "canvas"
+        </canvas>
+      </div>
+
+      <div style="display: inline-block"> 
+        Drawing Reference: <br>
+        <img src="drawingFoxReference.jpg" style="max-width: 300px">
+        <br>
+        Drawing:
+        <br>
+        <button type="Art" id="art">Art</button>
+      </div>
+    </div>
 
     <br>
     
     <button type="button" id="undo">Undo</button>
-    
+    <button type="button" id="clear">Clear Canvas</button>
+
+    <br><br>
+    Drawing Mode:
     <br>
-
-    <button type="button" id="green">Green</button>
-    <button type="button" id="red">Red</button>
-
-    <button type="button" id="clear">Clear</button>
-
-    <br>
-    <button type="button" id="point">Point</button>
+    <button type="button" id="point">Square</button>
     <button type="button" id="triangle">Triangle</button>
     <button type="button" id="circle">Circle</button>
 
+    <br><br>
+    Shape Color:
     <br>
     Red <input type="range" min="0" max="100" value="100" class="slider" id="redSlide">
     <br>
@@ -37,16 +55,13 @@
     Blue <input type="range" min="0" max="100" value="100" class="slider" id="blueSlide">
 
     <br><br>
-    Size <input type="range" min="0" max="100" value="100" class="slider" id="sizeSlide">
+    Shape Size: <input type="range" min="0" max="100" value="100" class="slider" id="sizeSlide">
     
     <br>
-    Circle Segments <input type="range" min="0" max="100" value="100" class="slider" id="cirSegSlide">
+    Circles Segment Count <input type="range" min="0" max="100" value="100" class="slider" id="cirSegSlide">
 
     <br>
-    Opacity (Transparency)  <input type="range" min="0" max="100" value="100" class="slider" id="opacitySlide">
-    
-    <br>
-    <button type="Art" id="art">Art</button>
+    Opacity (Transparent) <input type="range" min="0" max="100" value="100" class="slider" id="opacitySlide">
 
     <script src="./lib/webgl-utils.js"></script>
     <script src="./lib/webgl-debug.js"></script>

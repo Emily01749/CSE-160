@@ -80,12 +80,6 @@ let g_circleSegmentNum = 10;
 let g_selectedShape = POINT;
 
 function addUI(){
-  document.getElementById('green').onclick = function(){
-    g_selectedColor = [0.0, 1.0, 0.0, 1.0];
-  }
-  document.getElementById('red').onclick = function(){
-    g_selectedColor = [1.0, 0.0, 0.0, 1.0];
-  }
 
   document.getElementById('clear').onclick = function(){
     {g_shapesList = []};
