@@ -72,6 +72,7 @@ function connectVariablesToGLSL(){
 
 const POINT = 0;
 const TRIANGLE = 1;
+const CIRCLE = 2;
 
 let g_selectedColor = [1.0, 1.0, 1.0, 1.0];
 let g_selectedSize = 5;
@@ -97,6 +98,10 @@ function addUI(){
   document.getElementById('triangle').onclick = function(){
     {g_selectedShape = TRIANGLE};
     console.log("this is triangle button");
+  }
+  document.getElementById('circle').onclick = function(){
+    {g_selectedShape = CIRCLE};
+    console.log("this is circle button");
   }
 
   document.getElementById('redSlide').addEventListener('mouseup', function() {
@@ -157,9 +162,14 @@ function click(ev) {
     console.log("this is point");
     point = new Point();
   }
-  else{
+  else if(g_selectedShape == TRIANGLE){
     console.log("this is triangle");
     point = new Triangle();
+  }
+  else{
+    console.log("this is circle");
+    point = new Circle();
+
   }
 
   //let point = new Point();
