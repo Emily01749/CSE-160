@@ -76,6 +76,7 @@ const CIRCLE = 2;
 
 let g_selectedColor = [1.0, 1.0, 1.0, 1.0];
 let g_selectedSize = 5;
+let g_circleSegmentNum = 10;
 let g_selectedShape = POINT;
 
 function addUI(){
@@ -118,10 +119,15 @@ function addUI(){
     g_selectedSize = this.value;
   })
 
+  document.getElementById('cirSegSlide').addEventListener('mouseup', function() {
+    g_circleSegmentNum = this.value;
+  })
+
   g_selectedColor[0] = document.getElementById('redSlide').value/100;
   g_selectedColor[1] = document.getElementById('greenSlide').value/100;
   g_selectedColor[2] = document.getElementById('blueSlide').value/100;
   g_selectedSize = document.getElementById('sizeSlide').value;
+  g_circleSegmentNum = document.getElementById('cirSegSlide').value;
 }
 
 function main() {
@@ -180,6 +186,7 @@ function click(ev) {
   //let point = new Point();
   point.position = [x,y];
   point.color = g_selectedColor.slice();
+  point.segments = g_circleSegmentNum;
   point.size = g_selectedSize;
   g_shapesList.push(point);
 
