@@ -51,6 +51,6 @@ class Triangle{
         gl.uniform1f(u_Size, size);
 
         var delta = this.size/200.0;
-        drawTriangle([xy[0], xy[1], xy[0] + delta, xy[1], xy[0], xy[1] + delta]);
+        this.drawTriangle([xy[0], xy[1], xy[0] + delta, xy[1], xy[0], xy[1] + delta]);
     }
 }

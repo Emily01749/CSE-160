@@ -7,9 +7,9 @@ class Point{
   }
 
   render(){
-    var xy = g_shapesList[i].position;
-    var rgba = g_shapesList[i].color;
-    var size = g_shapesList[i].size;
+    var xy = this.position;
+    var rgba = this.color;
+    var size = this.size;
     /*var xy = g_points[i];
     var rgba = g_colors[i];
     var size = g_sizes[i];*/

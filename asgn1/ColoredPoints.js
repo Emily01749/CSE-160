@@ -70,8 +70,12 @@ function connectVariablesToGLSL(){
 
 }
 
+const POINT = 0;
+const TRIANGLE = 1;
+
 let g_selectedColor = [1.0, 1.0, 1.0, 1.0];
 let g_selectedSize = 5;
+let g_selectedShape = POINT;
 
 function addUI(){
   document.getElementById('green').onclick = function(){
@@ -84,6 +88,15 @@ function addUI(){
   document.getElementById('clear').onclick = function(){
     {g_shapesList = []};
     renderAllShapes();
+  }
+  
+  document.getElementById('point').onclick = function(){
+    {g_selectedShape = POINT};
+    console.log("this is point button");
+  }
+  document.getElementById('triangle').onclick = function(){
+    {g_selectedShape = TRIANGLE};
+    console.log("this is triangle button");
   }
 
   document.getElementById('redSlide').addEventListener('mouseup', function() {
@@ -123,9 +136,9 @@ function main() {
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT);
 
-  let tri = new Triangle();
-  tri.drawTriangle([0,0.5,-0.5,-0.5,0.5,-0.5]);
-  tri.drawTriangle([0, 0.25, 0.25, 0.25, -0.3, 0.5])
+  //let tri = new Triangle();
+  //tri.drawTriangle([0,0.5,-0.5,-0.5,0.5,-0.5]);
+  //tri.drawTriangle([0, 0.25, 0.25, 0.25, -0.3, 0.5])
 }
 
 var g_shapesList = [];
@@ -138,7 +151,18 @@ function click(ev) {
 
   let [x, y] = convertCoordEventToGL(ev);
 
-  let point = new Point();
+  let point;
+
+  if(g_selectedShape == POINT){
+    console.log("this is point");
+    point = new Point();
+  }
+  else{
+    console.log("this is triangle");
+    point = new Triangle();
+  }
+
+  //let point = new Point();
   point.position = [x,y];
   point.color = g_selectedColor.slice();
   point.size = g_selectedSize;
@@ -181,21 +205,10 @@ function renderAllShapes(){
   var len = g_shapesList.length;
 
   for(var i = 0; i < len; i++) {
-    var xy = g_shapesList[i].position;
-    var rgba = g_shapesList[i].color;
-    var size = g_shapesList[i].size;
-    /*var xy = g_points[i];
-    var rgba = g_colors[i];
-    var size = g_sizes[i];*/
+    console.log("nope");
 
-    // Pass the position of a point to a_Position variable
-    gl.vertexAttrib3f(a_Position, xy[0], xy[1], 0.0);
-    // Pass the color of a point to u_FragColor variable
-    gl.uniform4f(u_FragColor, rgba[0], rgba[1], rgba[2], rgba[3]);
-    // Pass the color of a point to u_FragColor variable
-    gl.uniform1f(u_Size, size);
-    // Draw
-    gl.drawArrays(gl.POINTS, 0, 1);
+    g_shapesList[i].render();
+
   }
   
 }
