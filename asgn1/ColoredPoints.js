@@ -117,6 +117,11 @@ function addUI(){
   document.getElementById('sizeSlide').addEventListener('mouseup', function() {
     g_selectedSize = this.value;
   })
+
+  g_selectedColor[0] = document.getElementById('redSlide').value/100;
+  g_selectedColor[1] = document.getElementById('greenSlide').value/100;
+  g_selectedColor[2] = document.getElementById('blueSlide').value/100;
+  g_selectedSize = document.getElementById('sizeSlide').value;
 }
 
 function main() {
@@ -159,15 +164,15 @@ function click(ev) {
   let point;
 
   if(g_selectedShape == POINT){
-    console.log("this is point");
+    console.log("this is point ", x, y);
     point = new Point();
   }
   else if(g_selectedShape == TRIANGLE){
-    console.log("this is triangle");
+    console.log("this is triangle ", x, y);
     point = new Triangle();
   }
   else{
-    console.log("this is circle");
+    console.log("this is circle", x, y);
     point = new Circle();
 
   }
@@ -177,6 +182,8 @@ function click(ev) {
   point.color = g_selectedColor.slice();
   point.size = g_selectedSize;
   g_shapesList.push(point);
+
+  console.log(g_shapesList);
 
   // Store the coordinates to g_points array
   /*g_points.push([x, y]);
@@ -215,7 +222,7 @@ function renderAllShapes(){
   var len = g_shapesList.length;
 
   for(var i = 0; i < len; i++) {
-    console.log("nope");
+    //console.log("nope");
 
     g_shapesList[i].render();
 

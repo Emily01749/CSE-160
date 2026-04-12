@@ -8,7 +8,6 @@ class Triangle{
 
     //initVertexBuffers(gl) {
     drawTriangle(vertices){
-        console.log("hi");
         /*var vertices = new Float32Array([
             0, 0.5,   -0.5, -0.5,   0.5, -0.5
         ]);*/
@@ -46,6 +45,8 @@ class Triangle{
         var xy = this.position;
         var rgba = this.color;
         var size = this.size;
+
+        console.log("Rending triangle ", rgba, xy[0], xy[1], size);
 
         gl.uniform4f(u_FragColor, rgba[0], rgba[1], rgba[2], rgba[3]);
         gl.uniform1f(u_Size, size);
