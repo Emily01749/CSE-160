@@ -122,6 +122,10 @@ function main() {
 
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT);
+
+  let tri = new Triangle();
+  tri.drawTriangle([0,0.5,-0.5,-0.5,0.5,-0.5]);
+  tri.drawTriangle([0, 0.25, 0.25, 0.25, -0.3, 0.5])
 }
 
 var g_shapesList = [];
