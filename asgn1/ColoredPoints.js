@@ -126,6 +126,19 @@ function addUI(){
   document.getElementById('opacitySlide').addEventListener('mouseup', function() {
     g_selectedColor[3] = this.value/100;
   })
+
+  document.getElementById('undo').onclick = function(){
+    if(g_shapesList.length > 0){
+      var undo = g_shapesList[g_shapesList.length - 1].undoCount;
+
+      while(g_shapesList.length > 0 && g_shapesList[g_shapesList.length - 1].undoCount == undo){
+        g_shapesList.pop();
+      }
+
+      renderAllShapes();
+    }
+  }
+
   
   document.getElementById('art').addEventListener('mouseup', function() {
     console.log("art button");
@@ -185,6 +198,8 @@ function addUI(){
   g_circleSegmentNum = document.getElementById('cirSegSlide').value;
 }
 
+var g_undoCount = 0;
+
 function main() {
 
   setupWebGL();
@@ -194,7 +209,11 @@ function main() {
 
   
   // Register function (event handler) to be called on a mouse press
-  canvas.onmousedown = click;
+  //canvas.onmousedown = click;
+  canvas.onmousedown = function(ev){
+    g_undoCount += 1;
+    click(ev);
+  }
   canvas.onmousemove = function(ev) {
     if(ev.buttons == 1){
       click(ev);
@@ -242,6 +261,7 @@ function click(ev) {
   point.color = g_selectedColor.slice();
   point.segments = g_circleSegmentNum;
   point.size = g_selectedSize;
+  point.undoCount = g_undoCount;
   g_shapesList.push(point);
 
   console.log(g_shapesList);
