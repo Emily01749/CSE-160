@@ -49,7 +49,7 @@ class ModifiedTriangle{
         var rgba = this.color;
         //var size = this.size;
 
-        console.log("Rending triangle ", rgba, this.pt1, this.pt2);
+        //console.log("Rending triangle ", rgba, this.pt1, this.pt2);
 
         gl.uniform4f(u_FragColor, rgba[0], rgba[1], rgba[2], rgba[3]);
         //gl.uniform1f(u_Size, size);

@@ -88,15 +88,15 @@ function addUI(){
   
   document.getElementById('point').onclick = function(){
     {g_selectedShape = POINT};
-    console.log("this is point button");
+    //console.log("this is point button");
   }
   document.getElementById('triangle').onclick = function(){
     {g_selectedShape = TRIANGLE};
-    console.log("this is triangle button");
+    //console.log("this is triangle button");
   }
   document.getElementById('circle').onclick = function(){
     {g_selectedShape = CIRCLE};
-    console.log("this is circle button");
+    //console.log("this is circle button");
   }
 
   document.getElementById('redSlide').addEventListener('mouseup', function() {
@@ -135,7 +135,8 @@ function addUI(){
 
   
   document.getElementById('art').addEventListener('mouseup', function() {
-    console.log("art button");
+   
+    //console.log("art button");
 
     let t;
     let scale = 1500;
@@ -179,7 +180,7 @@ function addUI(){
     
     //t = new ModifiedTriangle([-0.25, 0.25], [0.85, 0.25], [1, 0.25], [1.0, 1.0, 1.0, 1.0]); g_shapesList.push(t);
 
-    console.log(g_shapesList);
+    //console.log(g_shapesList);
 
     renderAllShapes();
 
@@ -240,15 +241,15 @@ function click(ev) {
   let point;
 
   if(g_selectedShape == POINT){
-    console.log("this is point ", x, y);
+    //console.log("this is point ", x, y);
     point = new Point();
   }
   else if(g_selectedShape == TRIANGLE){
-    console.log("this is triangle ", x, y);
+    //console.log("this is triangle ", x, y);
     point = new Triangle();
   }
   else{
-    console.log("this is circle", x, y);
+    //console.log("this is circle", x, y);
     point = new Circle();
 
   }
@@ -261,7 +262,7 @@ function click(ev) {
   point.undoCount = g_undoCount;
   g_shapesList.push(point);
 
-  console.log(g_shapesList);
+  //console.log(g_shapesList);
 
   // Store the coordinates to g_points array
   /*g_points.push([x, y]);

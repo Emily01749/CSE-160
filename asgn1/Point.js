@@ -14,10 +14,10 @@ class Point{
     var rgba = g_colors[i];
     var size = g_sizes[i];*/
 
-    console.log("Rending point ", rgba, xy[0], xy[1], size);
+    //console.log("Rending point ", rgba, xy[0], xy[1], size);
     var a_Position = gl.getAttribLocation(gl.program, 'a_Position');
     gl.disableVertexAttribArray(a_Position);
-    
+
     // Pass the position of a point to a_Position variable
     gl.vertexAttrib3f(a_Position, xy[0], xy[1], 0.0);
     // Pass the color of a point to u_FragColor variable
