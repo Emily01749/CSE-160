@@ -38,15 +38,12 @@ class Triangle{
 
         gl.drawArrays(gl.TRIANGLES, 0, n);
 
-        //return n;
     }
 
     render(){
         var xy = this.position;
         var rgba = this.color;
         var size = this.size;
-
-        //console.log("Rending triangle ", rgba, xy[0], xy[1], size);
 
         gl.uniform4f(u_FragColor, rgba[0], rgba[1], rgba[2], rgba[3]);
         gl.uniform1f(u_Size, size);

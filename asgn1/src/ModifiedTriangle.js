@@ -4,16 +4,12 @@ class ModifiedTriangle{
         this.pt1 = pt1;
         this.pt2 = pt2;
         this.pt3 = pt3;
-        //this.position = pos;
         this.color = color;
-        //this.size = size;
     }
 
     //initVertexBuffers(gl) {
     drawTriangle(vertices){
-        /*var vertices = new Float32Array([
-            0, 0.5,   -0.5, -0.5,   0.5, -0.5
-        ]);*/
+
         var n = 3; // The number of vertices
 
         // Create a buffer object
@@ -41,20 +37,13 @@ class ModifiedTriangle{
 
         gl.drawArrays(gl.TRIANGLES, 0, n);
 
-        //return n;
     }
 
     render(){
-        //var xy = this.position;
         var rgba = this.color;
-        //var size = this.size;
-
-        //console.log("Rending triangle ", rgba, this.pt1, this.pt2);
 
         gl.uniform4f(u_FragColor, rgba[0], rgba[1], rgba[2], rgba[3]);
-        //gl.uniform1f(u_Size, size);
 
-        //var delta = this.size/200.0;
         this.drawTriangle([this.pt1[0], this.pt1[1], this.pt2[0], this.pt2[1], this.pt3[0], this.pt3[1]]);
     }
 }
