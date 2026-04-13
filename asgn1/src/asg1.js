@@ -180,6 +180,7 @@ function addUI(){
   g_selectedColor[2] = document.getElementById('blueSlide').value/100;
   g_selectedSize = document.getElementById('sizeSlide').value;
   g_circleSegmentNum = document.getElementById('cirSegSlide').value;
+  g_selectedColor[3] = document.getElementById('opacitySlide').value/100;
 }
 
 var g_undoCount = 0;
