@@ -141,7 +141,6 @@ function addUI(){
     renderAllShapes();
   });
 
-
   document.getElementById('cameraAngleSlide').addEventListener('mousemove', function() {
     g_globalAngle = this.value;
     renderAllShapes();
@@ -238,6 +237,14 @@ function convertCoordEventToGL(ev){
 
   return [x, y];
 
+}
+
+function tick(){
+  console.log(performance.now());
+
+  renderAllShapes();
+
+  requestAnimationFrame(tick);
 }
 
 function renderAllShapes(){
