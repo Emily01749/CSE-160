@@ -310,12 +310,12 @@ function renderAllShapes(){
   //tri.drawTriangle3D([-1.0, 0.0, 0.0, -0.5,-1.0,0.0, 0.0,0.0,0.0]);
   
   //nose/snout
-  var body = new Cube();
-  body.color = [1.0, 0.0, 1.0, 1.0];
-  body.matrix.translate(-0.65, -0.15, 0.15);
-  body.matrix.rotate(-5, 1, 0, 0);
-  body.matrix.scale(0.3, 0.1, 0.25);
-  body.render();
+  var nose = new Cube();
+  nose.color = [1.0, 0.0, 1.0, 1.0];
+  nose.matrix.translate(-0.65, -0.15, 0.15);
+  nose.matrix.rotate(-5, 1, 0, 0);
+  nose.matrix.scale(0.3, 0.1, 0.25);
+  nose.render();
 
   // head
   var body = new Cube();
@@ -326,20 +326,20 @@ function renderAllShapes(){
   body.render();
 
   // one ear
-  var body = new Cube();
-  body.color = [1.0, 1.0, 0.0, 1.0];
-  body.matrix.translate(-0.65,0.20, 0.0);
-  body.matrix.rotate(-5, 1, 0, 0);
-  body.matrix.scale(0.1, 0.1, 0.1);
-  body.render();
+  var ear1 = new Cube();
+  ear1.color = [1.0, 1.0, 0.0, 1.0];
+  ear1.matrix.translate(-0.65,0.20, 0.0);
+  ear1.matrix.rotate(-5, 1, 0, 0);
+  ear1.matrix.scale(0.1, 0.1, 0.1);
+  ear1.render();
 
   // 2nd ear
-  var body = new Cube();
-  body.color = [1.0, 1.0, 0.0, 1.0];
-  body.matrix.translate(-0.45,0.20, 0.0);
-  body.matrix.rotate(-5, 1, 0, 0);
-  body.matrix.scale(0.1, 0.1, 0.1);
-  body.render();
+  var ear2 = new Cube();
+  ear2.color = [1.0, 1.0, 0.0, 1.0];
+  ear2.matrix.translate(-0.45,0.20, 0.0);
+  ear2.matrix.rotate(-5, 1, 0, 0);
+  ear2.matrix.scale(0.1, 0.1, 0.1);
+  ear2.render();
 
   // body
   var body = new Cube();
