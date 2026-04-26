@@ -92,6 +92,7 @@ let g_selectedColor = [1.0, 1.0, 1.0, 1.0];
 let g_selectedSize = 5;
 let g_circleSegmentNum = 10;
 let g_selectedShape = POINT;
+let g_globalAngle = 0;
 
 function addUI(){
 
@@ -130,6 +131,12 @@ function addUI(){
 
   document.getElementById('opacitySlide').addEventListener('mouseup', function() {
     g_selectedColor[3] = this.value/100;
+  });
+
+  document.getElementById('opacitySlide').addEventListener('mouseup', function() {
+    g_globalAngle = this.value;
+    renderAllShapes();
+
   });
 
   document.getElementById('undo').onclick = function(){
