@@ -2,9 +2,10 @@
 // Vertex shader program
 var VSHADER_SOURCE =
   'attribute vec4 a_Position;\n' +
+  'uniform mat4 u_ModelMatrix;\n'
   'uniform float u_Size;\n' +
   'void main() {\n' +
-  '  gl_Position = a_Position;\n' +
+  '  gl_Position = u_ModelMatrix * a_Position;\n' +
   '  //gl_PointSize = 10.0;\n' +
   '  gl_PointSize = u_Size;\n' +
   '}\n';
