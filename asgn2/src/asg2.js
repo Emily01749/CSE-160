@@ -318,12 +318,13 @@ function renderAllShapes(){
   nose.render();
 
   // head
-  var body = new Cube();
-  body.color = [1.0, 0.0, 0.0, 1.0];
-  body.matrix.translate(-0.65,-0.1, 0.0);
-  body.matrix.rotate(-5, 1, 0, 0);
-  body.matrix.scale(0.3, 0.3, 0.3);
-  body.render();
+  var head = new Cube();
+  var headCoordinatesMat = new Matrix4(head.matrix);
+  head.color = [1.0, 0.0, 0.0, 1.0];
+  head.matrix.translate(-0.65,-0.1, 0.0);
+  head.matrix.rotate(-5, 1, 0, 0);
+  head.matrix.scale(0.3, 0.3, 0.3);
+  head.render();
 
   // one ear
   var ear1 = new Cube();
@@ -343,11 +344,15 @@ function renderAllShapes(){
 
   // body
   var body = new Cube();
+  body.matrix = headCoordinatesMat;
   body.color = [1.0, 0.5, 0.5, 1.0];
-  body.matrix.translate(-0.05,-0.5, -0.05);
+  body.matrix.translate(-0.6,-0.4, -0.05);
   body.matrix.rotate(-5,1,0,0);
-  body.matrix.rotate(g_bodyAngle, 0, 0, 1);
+  body.matrix.rotate(g_bodyAngle, 1, 0, 0);
   body.matrix.scale(0.3, 0.3, 0.3);
+  //var bodyCoordinatesMat = new Matrix4(body.matrix);
+  //body.matrix.scale(3.5, 2, 0);
+  //body.matrix.translate(0.01, -0.5, 0);
   body.render();
 
   /*var leftArm = new Cube();
