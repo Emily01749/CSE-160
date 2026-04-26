@@ -3,9 +3,10 @@
 var VSHADER_SOURCE =
   'attribute vec4 a_Position;\n' +
   'uniform mat4 u_ModelMatrix;\n' +
+  'uniform mat4 u_GlobalRotateMatrix;\n' +
   'uniform float u_Size;\n' +
   'void main() {\n' +
-  '  gl_Position = u_ModelMatrix * a_Position;\n' +
+  '  gl_Position = u_GlobalRotateMatrix * u_ModelMatrix * a_Position;\n' +
   '  gl_PointSize = 10.0;\n' +
   '  gl_PointSize = u_Size;\n' +
   '}\n';
@@ -25,7 +26,7 @@ let a_Position;
 let u_FragColor;
 let u_Size;
 let u_ModelMatrix;
-
+let u_GlobalRotateMatrix;
 
 function setupWebGL(){
   // Retrieve <canvas> element
@@ -59,6 +60,12 @@ function connectVariablesToGLSL(){
   u_FragColor = gl.getUniformLocation(gl.program, 'u_FragColor');
   if (!u_FragColor) {
     console.log('Failed to get the storage location of u_FragColor');
+    return;
+  }
+
+  u_GlobalRotateMatrix = gl.getUniformLocation(gl.program, 'u_GlobalRotateMatrix');
+  if(!u_GlobalRotateMatrix){
+    console.log('Failed to get the storage location of u_GlobalRotateMatrix');
     return;
   }
 
