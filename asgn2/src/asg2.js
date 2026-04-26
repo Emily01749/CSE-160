@@ -95,6 +95,7 @@ let g_selectedSize = 5;
 let g_circleSegmentNum = 10;
 let g_selectedShape = POINT;
 let g_globalAngle = 0;
+let g_bodyAngle = 0;
 
 function addUI(){
 
@@ -134,6 +135,12 @@ function addUI(){
   document.getElementById('opacitySlide').addEventListener('mouseup', function() {
     g_selectedColor[3] = this.value/100;
   });
+
+  document.getElementById('bodyJointSlide').addEventListener('mousemove', function() {
+    g_bodyAngle = this.value;
+    renderAllShapes();
+  });
+
 
   document.getElementById('cameraAngleSlide').addEventListener('mousemove', function() {
     g_globalAngle = this.value;
@@ -338,7 +345,8 @@ function renderAllShapes(){
   var body = new Cube();
   body.color = [1.0, 0.5, 0.5, 1.0];
   body.matrix.translate(-0.05,-0.5, -0.05);
-  body.matrix.rotate(-5, 1, 0, 0);
+  body.matrix.rotate(-5,1,0,0);
+  body.matrix.rotate(g_bodyAngle, 0, 0, 1);
   body.matrix.scale(0.3, 0.3, 0.3);
   body.render();
 
