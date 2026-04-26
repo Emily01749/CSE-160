@@ -133,7 +133,7 @@ function addUI(){
     g_selectedColor[3] = this.value/100;
   });
 
-  document.getElementById('opacitySlide').addEventListener('mouseup', function() {
+  document.getElementById('cameraAngleSlide').addEventListener('mousemove', function() {
     g_globalAngle = this.value;
     renderAllShapes();
 
@@ -278,12 +278,16 @@ function convertCoordEventToGL(ev){
 }
 
 function renderAllShapes(){
+
+  var globalRotMat = new Matrix4().rotate(g_globalAngle, 0, 1, 0);
+  gl.uniformMatrix4fv(u_GlobalRotateMatrix, false, globalRotMat.elements);
+
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT);
 
   var len = g_shapesList.length;
 
-  gl.enable(gl.BLEND)
+  gl.enable(gl.BLEND);
   gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
   gl.disable(gl.DEPTH_TEST);
 
