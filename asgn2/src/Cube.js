@@ -34,7 +34,10 @@ class Cube{
             tri.drawTriangle([xy[0], xy[1], pt1[0], pt1[1], pt2[0], pt2[1]])
         }*/
 
-        tri.drawTriangle3D([0.0,0.0,0.0,    1.0,1.0,0.0,   1.0,0.0,0.0]);
-        tri.drawTriangle3D([0.0,0.0,0.0,    0.0,1.0,0.0,   1.0,1.0,0.0]);
+        tri.drawTriangle3D([0,0,0, 1,1,0, 1,0,0])
+        tri.drawTriangle3D([0,0,0, 0,1,0, 1,1,0])
+
+        tri.drawTriangle3D([0,1,0, 0,1,1, 1,1,1]);
+        tri.drawTriangle3D([0,1,0, 1,1,1, 1,1,0]);
     }
 }
