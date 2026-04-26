@@ -302,27 +302,60 @@ function renderAllShapes(){
   var tri = new Triangle();
   //tri.drawTriangle3D([-1.0, 0.0, 0.0, -0.5,-1.0,0.0, 0.0,0.0,0.0]);
   
+  //nose/snout
   var body = new Cube();
-  body.color = [1.0, 0.0, 0.0, 1.0];
-  body.matrix.translate(-0.25,-0.55, 0.0);
+  body.color = [1.0, 0.0, 1.0, 1.0];
+  body.matrix.translate(-0.65, -0.15, 0.15);
   body.matrix.rotate(-5, 1, 0, 0);
-  body.matrix.scale(0.5, 0.5, 0.5);
+  body.matrix.scale(0.3, 0.1, 0.25);
   body.render();
 
-  var leftArm = new Cube();
+  // head
+  var body = new Cube();
+  body.color = [1.0, 0.0, 0.0, 1.0];
+  body.matrix.translate(-0.65,-0.1, 0.0);
+  body.matrix.rotate(-5, 1, 0, 0);
+  body.matrix.scale(0.3, 0.3, 0.3);
+  body.render();
+
+  // one ear
+  var body = new Cube();
+  body.color = [1.0, 1.0, 0.0, 1.0];
+  body.matrix.translate(-0.65,0.20, 0.0);
+  body.matrix.rotate(-5, 1, 0, 0);
+  body.matrix.scale(0.1, 0.1, 0.1);
+  body.render();
+
+  // 2nd ear
+  var body = new Cube();
+  body.color = [1.0, 1.0, 0.0, 1.0];
+  body.matrix.translate(-0.45,0.20, 0.0);
+  body.matrix.rotate(-5, 1, 0, 0);
+  body.matrix.scale(0.1, 0.1, 0.1);
+  body.render();
+
+  // body
+  var body = new Cube();
+  body.color = [1.0, 0.5, 0.5, 1.0];
+  body.matrix.translate(-0.05,-0.5, -0.05);
+  body.matrix.rotate(-5, 1, 0, 0);
+  body.matrix.scale(0.3, 0.3, 0.3);
+  body.render();
+
+  /*var leftArm = new Cube();
   leftArm.color = [1,1,0,1];
   leftArm.matrix.setTranslate(0, -0.5, 0.0);
   leftArm.matrix.rotate(-5,1,0,0);
   //leftArm.matrix.rotate(0,0,0,1);
   leftArm.matrix.scale(0.25, 0.7, 0.5);
   //leftArm.matrix.translate(-0.5,-0, 0);
-  leftArm.render();
+  leftArm.render();*/
 
-  var box = new Cube();
+  /*var box = new Cube();
   box.color = [1,0,1,1];
   box.matrix.translate(-0.1, 0.2, 0.0, 0);
   box.matrix.rotate(-30,1,0,0);
   box.matrix.scale(0.2, 0.4, 0.2);
-  box.render();
+  box.render();*/
 
 }
