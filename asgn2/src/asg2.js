@@ -61,6 +61,12 @@ function connectVariablesToGLSL(){
     return;
   }
 
+  u_ModelMatrix = gl.getUniformLocation(gl.program, 'u_ModelMatrix');
+  if(!u_ModelMatrix){
+    console.log('Failed to get the storage location of u_ModelMatrix');
+    return;
+  }
+
   // Get the storage location of u_FragColor
   u_Size = gl.getUniformLocation(gl.program, 'u_Size');
   if (!u_Size) {
