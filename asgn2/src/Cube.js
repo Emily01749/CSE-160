@@ -34,21 +34,31 @@ class Cube{
             tri.drawTriangle([xy[0], xy[1], pt1[0], pt1[1], pt2[0], pt2[1]])
         }*/
        gl.uniform4f(u_FragColor, rgba[0]*0.9, rgba[1]*0.9, rgba[2]*0.9, rgba[3]);
+        
+        tri.drawTriangle3D([0,0,0, 1,1,0, 1,0,0]);
+        tri.drawTriangle3D([0,0,0, 0,1,0, 1,1,0]);
 
-        tri.drawTriangle3D([0,0,0, 1,1,0, 1,0,0])
-        tri.drawTriangle3D([0,0,0, 0,1,0, 1,1,0])
+        gl.uniform4f(u_FragColor, rgba[0]*0.7, rgba[1]*0.7, rgba[2]*0.7, rgba[3]);
 
         tri.drawTriangle3D([0,1,0, 0,1,1, 1,1,1]);
         tri.drawTriangle3D([0,1,0, 1,1,1, 1,1,0]);
-
+        
+        gl.uniform4f(u_FragColor, rgba[0]*0.7, rgba[1]*0.7, rgba[2]*0.7, rgba[3]);
+        
         tri.drawTriangle3D([0,0,1, 1,0,1, 1,1,1]);
         tri.drawTriangle3D([0,0,1, 1,1,1, 0,1,1]);
+
+        gl.uniform4f(u_FragColor, rgba[0]*0.7, rgba[1]*0.7, rgba[2]*0.7, rgba[3]);
 
         tri.drawTriangle3D([0,0,0, 1,0,1, 0,0,1]);
         tri.drawTriangle3D([0,0,0, 1,0,0, 1,0,1]);
 
+        gl.uniform4f(u_FragColor, rgba[0]*0.7, rgba[1]*0.7, rgba[2]*0.7, rgba[3]);
+
         tri.drawTriangle3D([0,0,0, 0,0,1, 0,1,1]);
         tri.drawTriangle3D([0,0,0, 0,1,1, 0,1,0]);
+
+        gl.uniform4f(u_FragColor, rgba[0]*0.7, rgba[1]*0.7, rgba[2]*0.7, rgba[3]);
 
         tri.drawTriangle3D([1,0,0, 1,1,1, 1,0,1]);
         tri.drawTriangle3D([1,0,0, 1,1,0, 1,1,1]);
