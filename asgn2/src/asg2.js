@@ -160,52 +160,6 @@ function addUI(){
     }
   };
 
-  
-  document.getElementById('art').addEventListener('mouseup', function() {
-
-    let t;
-    let scale = 1500;
-    let drawingPts = [
-      [[1292, 1116], [907, 775], [1677, 759], [0.4, 0.89, 0, 1.0]], // head
-      [[907, 780], [1105, 401], [1237, 773], [0.4, 0.89, 0, 1.0]], // left ear
-      [[1430, 797], [1677, 759], [1589, 390], [0.4, 0.89, 0, 1.0]], // right ear
-      [[1133, 995], [1375, 1320], [1287, 1116], [0, 0.36, 0, 1.0]], // left neck
-      [[1287, 1116], [1446, 984], [1289, 1325], [0, 0.49, 0, 1.0]], // middle neck
-      [[1298, 1325], [1567, 1105], [1430, 968], [0, 0.75, 0, 1.0]], // right neck
-      [[1567, 1105], [2018, 1655], [1276, 1342], [0.4, 0.89, 0, 1.0]], // body
-      [[1270, 1331], [1446, 1545], [1276, 1771], [0.4, 0.89, 0, 1.0]], // front arm (1)
-      [[1578, 1463], [1688, 1540], [1496, 1776], [0, 0.51, 0, 1.0]], // front leg
-      [[2018, 1650], [1727, 2205], [2233, 1622], [0, 0.51, 0, 1.0]], // front arm (2)
-      [[1259, 1754], [891, 1457], [896, 1881], [0.4, 0.89, 0, 1.0]], // front arm (3)
-      [[918, 1468],[891, 1903], [335, 1985], [0.4, 0.89, 0, 1.0]], // front arm (4)
-      [[1771, 1408], [1859, 1325], [1875, 1435], [1.0, 0.5, 1.0, 1.0]], // "E" (1)
-      [[1875, 1325], [1974, 1380], [1870, 1424], [1.0, 0.5, 1.0, 1.0]], // "E" (2)
-      [[1864, 1325], [1969, 1380], [1864, 1325], [1.0, 0.5, 1.0, 1.0]], // "E" (3)
-      [[1870, 1331], [1974, 1237], [1853, 1215], [1.0, 0.5, 1.0, 1.0]], // "E" (4)
-      [[1859, 1204], [1853, 1111], [1969, 1171], [1.0, 0.5, 1.0, 1.0]], // "E" (5)
-      [[1996, 1375], [2095, 1386], [2040, 1155], [0.5, 1.0, 1.0, 1.0]], // "M" (1)
-      [[2046, 1182], [2205, 1413], [2189, 1325], [0.5, 1.0, 1.0, 1.0]], // "M" (2)
-      [[2189, 1204], [2183, 1325], [2304, 1320], [0.5, 1.0, 1.0, 1.0]], // "M" (3)
-      [[2233, 1325], [2304, 1314], [2326, 1419], [0.5, 1.0, 1.0, 1.0]], // "M" (4)
-      [[1133, 819], [1045, 841], [1127, 863], [1.0, 1.0, 1.0, 1.0]],
-      [[1133 + 350, 819], [1045 + 350, 841], [1127 + 350, 863], [1.0, 1.0, 1.0, 1.0]],
-    ];
-
-    let offsetX = -1;
-
-    for(let i = 0; i < drawingPts.length; i++){
-      let eachPt = drawingPts[i];
-      let p1 = [eachPt[0][0]/scale + offsetX, 1 - eachPt[0][1]/scale];
-      let p2 = [eachPt[1][0]/scale + offsetX, 1 - eachPt[1][1]/scale];
-      let p3 = [eachPt[2][0]/scale + offsetX, 1 - eachPt[2][1]/scale];
-      t = new ModifiedTriangle(p1, p2, p3, eachPt[3]);
-      g_shapesList.push(t);
-    }
-
-    renderAllShapes();
-
-  });
-
   g_selectedColor[0] = document.getElementById('redSlide').value/100;
   g_selectedColor[1] = document.getElementById('greenSlide').value/100;
   g_selectedColor[2] = document.getElementById('blueSlide').value/100;
@@ -311,18 +265,20 @@ function renderAllShapes(){
   
   //nose/snout
   var nose = new Cube();
+  var noseCoordinatesMat = new Matrix4(nose.matrix);
   nose.color = [1.0, 0.0, 1.0, 1.0];
-  nose.matrix.translate(-0.65, -0.15, 0.15);
+  nose.matrix.translate(-0.65, -0.05, 0.25);
   nose.matrix.rotate(-5, 1, 0, 0);
-  nose.matrix.scale(0.3, 0.1, 0.25);
+  nose.matrix.scale(0.3, 0.1, 0.1);
   nose.render();
 
   // head
   var head = new Cube();
+  head.matrix = noseCoordinatesMat;
   var headCoordinatesMat = new Matrix4(head.matrix);
   head.color = [1.0, 0.0, 0.0, 1.0];
   head.matrix.translate(-0.65,-0.1, 0.0);
-  head.matrix.rotate(-5, 1, 0, 0);
+  head.matrix.rotate(0, 1, 0, 0);
   head.matrix.scale(0.3, 0.3, 0.3);
   head.render();
 
@@ -346,10 +302,11 @@ function renderAllShapes(){
   var body = new Cube();
   body.matrix = headCoordinatesMat;
   body.color = [1.0, 0.5, 0.5, 1.0];
+  //body.matrix.translate(-0.6,-0.4, -0.05);
+  //body.matrix.rotate(-5,1,0,0);
+  body.matrix.rotate(0, 1, 0, 0);
   body.matrix.translate(-0.6,-0.4, -0.05);
-  body.matrix.rotate(-5,1,0,0);
-  body.matrix.rotate(g_bodyAngle, 1, 0, 0);
-  body.matrix.scale(0.3, 0.3, 0.3);
+  body.matrix.scale(0.5, 0.3, 0.3);
   //var bodyCoordinatesMat = new Matrix4(body.matrix);
   //body.matrix.scale(3.5, 2, 0);
   //body.matrix.translate(0.01, -0.5, 0);
