@@ -96,6 +96,7 @@ let g_circleSegmentNum = 10;
 let g_selectedShape = POINT;
 let g_globalAngle = 0;
 let g_bodyAngle = 0;
+let g_Animiation = false;
 
 function addUI(){
 
@@ -146,6 +147,17 @@ function addUI(){
     renderAllShapes();
 
   });
+
+  document.getElementById('AnimationOn').onclick = function() {
+    {g_Animiation = true};
+
+  };
+  document.getElementById('AnimationOff').onclick = function() {
+    {g_Animiation = true};
+
+  };
+
+
 
   document.getElementById('undo').onclick = function(){
     if(g_shapesList.length > 0){
