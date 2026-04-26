@@ -2,11 +2,11 @@
 // Vertex shader program
 var VSHADER_SOURCE =
   'attribute vec4 a_Position;\n' +
-  'uniform mat4 u_ModelMatrix;\n'
+  'uniform mat4 u_ModelMatrix;\n' +
   'uniform float u_Size;\n' +
   'void main() {\n' +
   '  gl_Position = u_ModelMatrix * a_Position;\n' +
-  '  //gl_PointSize = 10.0;\n' +
+  '  gl_PointSize = 10.0;\n' +
   '  gl_PointSize = u_Size;\n' +
   '}\n';
 
@@ -24,6 +24,7 @@ let gl;
 let a_Position;
 let u_FragColor;
 let u_Size;
+let u_ModelMatrix;
 
 
 function setupWebGL(){
@@ -282,6 +283,8 @@ function renderAllShapes(){
   
   var body = new Cube();
   body.color = [1.0, 0.0, 1.0];
+  body.matrix.translate(-0.25,-0.5, -0.0);
+  body.matrix.scale(0.5, -1, -0.5);
   body.render();
 
 }
