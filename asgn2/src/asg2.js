@@ -270,5 +270,11 @@ function renderAllShapes(){
     g_shapesList[i].render();
 
   }
+  var tri = new Triangle();
+  tri.drawTriangle3D([-1.0, 0.0, 0.0, -0.5,-1.0,0.0, 0.0,0.0,0.0]);
   
+  var body = new Cube();
+  body.color = [1.0, 0.0, 1.0];
+  body.render();
+
 }
