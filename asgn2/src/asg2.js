@@ -287,4 +287,10 @@ function renderAllShapes(){
   body.matrix.scale(0.5, -1, -0.5);
   body.render();
 
+  var leftArm = new Cube();
+  leftArm.color = [1,1,0,1];
+  leftArm.matrix.translate(0.7, 0, 0.0);
+  leftArm.matrix.rotate(45.0,0, 0,1);
+  leftArm.matrix.scale(0.25, 0.7, 0.5);
+  leftArm.render();
 }
