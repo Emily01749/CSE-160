@@ -17,6 +17,7 @@ class Cube{
 
         gl.uniform4f(u_FragColor, rgba[0], rgba[1], rgba[2], rgba[3]);
         //gl.uniform1f(u_Size, size);
+        gl.uniformMatrix4fv(u_ModelMatrix, false, this.matrix.elements);
 
         /*var delta = this.size/200.0;
 
