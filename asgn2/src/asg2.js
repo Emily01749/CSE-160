@@ -38,6 +38,8 @@ function setupWebGL(){
     console.log('Failed to get the rendering context for WebGL');
     return;
   }
+  
+  gl.enable(gl.DEPTH_TEST);
 
 }
 
@@ -279,36 +281,48 @@ function convertCoordEventToGL(ev){
 
 function renderAllShapes(){
 
+  // Clear <canvas>
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  //gl.clear(gl.COLOR_BUFFER_BIT);
+
   var globalRotMat = new Matrix4().rotate(g_globalAngle, 0, 1, 0);
   gl.uniformMatrix4fv(u_GlobalRotateMatrix, false, globalRotMat.elements);
 
-  // Clear <canvas>
-  gl.clear(gl.COLOR_BUFFER_BIT);
+  //var len = g_shapesList.length;
 
-  var len = g_shapesList.length;
+  //gl.enable(gl.BLEND);
+  //gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+  //gl.disable(gl.DEPTH_TEST);
 
-  gl.enable(gl.BLEND);
-  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-  gl.disable(gl.DEPTH_TEST);
-
-  for(var i = 0; i < len; i++) {
+  /*for(var i = 0; i < len; i++) {
 
     g_shapesList[i].render();
 
-  }
+  }*/
   var tri = new Triangle();
-  tri.drawTriangle3D([-1.0, 0.0, 0.0, -0.5,-1.0,0.0, 0.0,0.0,0.0]);
+  //tri.drawTriangle3D([-1.0, 0.0, 0.0, -0.5,-1.0,0.0, 0.0,0.0,0.0]);
   
   var body = new Cube();
-  body.color = [1.0, 0.0, 1.0];
-  body.matrix.translate(-0.25,-0.5, -0.0);
-  body.matrix.scale(0.5, -1, -0.5);
+  body.color = [1.0, 0.0, 0.0, 1.0];
+  body.matrix.translate(-0.25,-0.55, 0.0);
+  body.matrix.rotate(-5, 1, 0, 0);
+  body.matrix.scale(0.5, 0.5, 0.5);
   body.render();
 
   var leftArm = new Cube();
   leftArm.color = [1,1,0,1];
-  leftArm.matrix.translate(0.7, 0, 0.0);
-  leftArm.matrix.rotate(45.0,0, 0,1);
+  leftArm.matrix.setTranslate(0, -0.5, 0.0);
+  leftArm.matrix.rotate(-5,1,0,0);
+  //leftArm.matrix.rotate(0,0,0,1);
   leftArm.matrix.scale(0.25, 0.7, 0.5);
+  //leftArm.matrix.translate(-0.5,-0, 0);
   leftArm.render();
+
+  var box = new Cube();
+  box.color = [1,0,1,1];
+  box.matrix.translate(-0.1, 0.2, 0.0, 0);
+  box.matrix.rotate(-30,1,0,0);
+  box.matrix.scale(0.2, 0.4, 0.2);
+  box.render();
+
 }
