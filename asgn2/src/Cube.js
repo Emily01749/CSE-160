@@ -16,7 +16,7 @@ class Cube{
         //var size = this.size;
 
         gl.uniform4f(u_FragColor, rgba[0], rgba[1], rgba[2], rgba[3]);
-        gl.uniform1f(u_Size, size);
+        //gl.uniform1f(u_Size, size);
 
         /*var delta = this.size/200.0;
 
@@ -33,7 +33,7 @@ class Cube{
             tri.drawTriangle([xy[0], xy[1], pt1[0], pt1[1], pt2[0], pt2[1]])
         }*/
 
-        drawTriangle3D([0.0,0.0,0.0,    1.0,1.0,0.0,   1.0,0.0,0.0]);
-        drawTriangle3D([0.0,0.0,0.0,    0.0,1.0,0.0,   1.0,1.0,0.0]);
+        tri.drawTriangle3D([0.0,0.0,0.0,    1.0,1.0,0.0,   1.0,0.0,0.0]);
+        tri.drawTriangle3D([0.0,0.0,0.0,    0.0,1.0,0.0,   1.0,1.0,0.0]);
     }
 }
