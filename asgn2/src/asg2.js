@@ -95,7 +95,7 @@ function connectVariablesToGLSL(){
 //let g_circleSegmentNum = 10;
 //let g_selectedShape = POINT;
 let g_globalAngle = 0;
-let g_bodyAngle = 0;
+let g_headAngle = 0;
 let g_Animiation = false;
 
 function addUI(){
@@ -137,8 +137,8 @@ function addUI(){
     g_selectedColor[3] = this.value/100;
   });*/
 
-  document.getElementById('bodyJointSlide').addEventListener('mousemove', function() {
-    g_bodyAngle = this.value;
+  document.getElementById('headJointSlide').addEventListener('mousemove', function() {
+    g_headAngle = this.value;
     renderAllShapes();
   });
 
@@ -291,54 +291,134 @@ function renderAllShapes(){
   var tri = new Triangle();
   //tri.drawTriangle3D([-1.0, 0.0, 0.0, -0.5,-1.0,0.0, 0.0,0.0,0.0]);
   
-  //nose/snout
-  var nose = new Cube();
-  var noseCoordinatesMat = new Matrix4(nose.matrix);
-  nose.color = [1.0, 0.0, 1.0, 1.0];
-  nose.matrix.translate(-0.65, -0.05, 0.25);
-  nose.matrix.rotate(-5, 1, 0, 0);
-  nose.matrix.scale(0.3, 0.1, 0.1);
-  nose.render();
+  // body
+  var body = new Cube();
+  //body.matrix = headCoordinatesMat;
+  body.color = [0.0, 1.0, 0.0, 1.0];
+  //body.matrix.translate(-0.5,-0.5, -0.5);
+  //body.matrix.rotate(-5,1,0,0);
+  //body.matrix.rotate(0, 1, 0, 0);
+  //body.matrix.translate(-0.6,-0.4, -0.05);
+  var bodyCoordinatesMat = new Matrix4(body.matrix);
+  body.matrix.scale(0.25, 0.15, 0.15);
+  //body.matrix.scale(3.5, 2, 0);
+  //body.matrix.translate(0.01, -0.5, 0);
+  body.render();
 
   // head
   var head = new Cube();
-  head.matrix = noseCoordinatesMat;
-  var headCoordinatesMat = new Matrix4(head.matrix);
+  head.matrix = new Matrix4(bodyCoordinatesMat);
   head.color = [1.0, 0.0, 0.0, 1.0];
-  head.matrix.translate(-0.65,-0.1, 0.0);
+  head.matrix.translate(0.25, 0.15 + 0.15/2, 0);
   head.matrix.rotate(0, 1, 0, 0);
-  head.matrix.scale(0.3, 0.3, 0.3);
+  head.matrix.rotate(g_headAngle, 0, 1, 0, 0);
+  var headCoordinatesMat = new Matrix4(head.matrix);
+  head.matrix.scale(0.15, 0.15, 0.15);
   head.render();
 
   // one ear
   var ear1 = new Cube();
   ear1.color = [1.0, 1.0, 0.0, 1.0];
-  ear1.matrix.translate(-0.65,0.20, 0.0);
-  ear1.matrix.rotate(-5, 1, 0, 0);
-  ear1.matrix.scale(0.1, 0.1, 0.1);
+  ear1.matrix = new Matrix4(headCoordinatesMat);
+  ear1.matrix.translate(0.1,0.20, 0.1); // x = right; y = up;  z = into screen
+  //ear1.matrix.rotate(-5, 1, 0, 0);
+  ear1.matrix.scale(0.05, 0.05, 0.05);
   ear1.render();
 
   // 2nd ear
   var ear2 = new Cube();
-  ear2.color = [1.0, 1.0, 0.0, 1.0];
-  ear2.matrix.translate(-0.45,0.20, 0.0);
-  ear2.matrix.rotate(-5, 1, 0, 0);
-  ear2.matrix.scale(0.1, 0.1, 0.1);
+  ear2.color = [1.0, 1.0, 1.0, 1.0];
+  ear2.matrix = new Matrix4(headCoordinatesMat);
+  ear2.matrix.translate(0.1,0.2, -0.1); // x = right; y = up;  z = into screen
+  //ear2.matrix.rotate(-5, 1, 0, 0);
+  ear2.matrix.scale(0.05, 0.05, 0.05);
   ear2.render();
 
-  // body
-  var body = new Cube();
-  body.matrix = headCoordinatesMat;
-  body.color = [1.0, 0.5, 0.5, 1.0];
-  //body.matrix.translate(-0.6,-0.4, -0.05);
-  //body.matrix.rotate(-5,1,0,0);
-  body.matrix.rotate(0, 1, 0, 0);
-  body.matrix.translate(-0.6,-0.4, -0.05);
-  body.matrix.scale(0.5, 0.3, 0.3);
+  //nose/snout
+  var nose = new Cube();
+  nose.matrix = new Matrix4(headCoordinatesMat);
+  nose.color = [1.0, 0.0, 1.0, 1.0];
+  nose.matrix.translate(0.15, -0.05, 0); // x = right; y = up;  z = into screen
+  //nose.matrix.rotate(-5, 1, 0, 0);
+  nose.matrix.scale(0.3, 0.1, 0.1);
+  nose.render();
+
+  // leg front 1
+  var frontLeg1 = new Cube();
+  frontLeg1.color = [0.0, 0.0, 1.0, 1.0];
+  frontLeg1.matrix = new Matrix4(bodyCoordinatesMat);
+  //frontLeg1.matrix.translate(-0.6,-0.4, -0.05);
+  //frontLeg1.matrix.rotate(-5,1,0,0);
+  //frontLeg1.matrix.rotate(0, 1, 0, 0);
+  frontLeg1.matrix.translate(0.15, -0.15, -0.13);
+  frontLeg1.matrix.scale(0.05, 0.15, 0.05);
   //var bodyCoordinatesMat = new Matrix4(body.matrix);
-  //body.matrix.scale(3.5, 2, 0);
-  //body.matrix.translate(0.01, -0.5, 0);
-  body.render();
+  //frontLeg1.matrix.scale(3.5, 2, 0);
+  //frontLeg1.matrix.translate(0.01, -0.5, 0);
+  frontLeg1.render();
+
+  // leg front 2
+  var frontLeg2 = new Cube();
+  frontLeg2.color = [0.0, 0.0, 1.0, 1.0];
+  frontLeg2.matrix = new Matrix4(bodyCoordinatesMat);
+  //frontLeg2.matrix.translate(-0.6,-0.4, -0.05);
+  //frontLeg2.matrix.rotate(-5,1,0,0);
+  //frontLeg2.matrix.rotate(0, 1, 0, 0);
+  frontLeg2.matrix.translate(0.15, -0.15, 0.13);
+  frontLeg2.matrix.scale(0.05, 0.15, 0.05);
+  //var bodyCoordinatesMat = new Matrix4(body.matrix);
+  //frontLeg2.matrix.scale(3.5, 2, 0);
+  //frontLeg2.matrix.translate(0.01, -0.5, 0);
+  frontLeg2.render();
+
+  // leg back 1
+  var backLeg1 = new Cube();
+  backLeg1.color = [0.0, 0.0, 1.0, 1.0];
+  backLeg1.matrix = new Matrix4(bodyCoordinatesMat);
+  //backLeg1.matrix.translate(-0.6,-0.4, -0.05);
+  //backLeg1.matrix.rotate(-5,1,0,0);
+  //frontLeg1.matrix.rotate(0, 1, 0, 0);
+  backLeg1.matrix.translate(-0.15, -0.15, -0.13);
+  backLeg1.matrix.scale(0.05, 0.15, 0.05);
+  //var bodyCoordinatesMat = new Matrix4(body.matrix);
+  //backLeg1.matrix.scale(3.5, 2, 0);
+  //backLeg1.matrix.translate(0.01, -0.5, 0);
+  backLeg1.render();
+
+  // leg front 2
+  var backLeg2 = new Cube();
+  backLeg2.color = [0.0, 0.0, 1.0, 1.0];
+  backLeg2.matrix = new Matrix4(bodyCoordinatesMat);
+  //backLeg2.matrix.translate(-0.6,-0.4, -0.05);
+  //backLeg2.matrix.rotate(-5,1,0,0);
+  //backLeg2.matrix.rotate(0, 1, 0, 0);
+  backLeg2.matrix.translate(-0.15, -0.15, 0.13);
+  backLeg2.matrix.scale(0.05, 0.15, 0.05);
+  //var bodyCoordinatesMat = new Matrix4(body.matrix);
+  //backLeg2.matrix.scale(3.5, 2, 0);
+  //backLeg2.matrix.translate(0.01, -0.5, 0);
+  backLeg2.render();
+
+  // tail
+  var tail = new Cube();
+  tail.color = [0.0, 0.0, 1.0, 1.0];
+  tail.matrix = new Matrix4(bodyCoordinatesMat);
+  //tail.matrix.translate(-0.6,-0.4, -0.05);
+  //tail.matrix.rotate(-5,1,0,0);
+  //tail.matrix.rotate(0, 1, 0, 0);
+  tail.matrix.translate(-0.25, 0.15, 0);  // x = right; y = up;  z = into screen
+  tail.matrix.scale(0.05, 0.05, 0.05);
+  //var bodyCoordinatesMat = new Matrix4(body.matrix);
+  //tail.matrix.scale(3.5, 2, 0);
+  //tail.matrix.translate(0.01, -0.5, 0);
+  tail.render();
+
+  var cloneTailCube = new Matrix4(tail.matrix);
+
+  for(var i = 0; i < 10; i++){
+    var tailCubePiece = new Cube();
+    
+  }
 
   /*var leftArm = new Cube();
   leftArm.color = [1,1,0,1];
