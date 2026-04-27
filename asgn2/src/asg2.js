@@ -395,11 +395,41 @@ function renderAllShapes(){
   var frontLeg1 = new Cube();
   frontLeg1.color = [0.0, 0.0, 1.0, 1.0];
   frontLeg1.matrix = new Matrix4(bodyCoordinatesMat);
-  frontLeg1.matrix.translate(0.2, -0.1, -0.1);
+  frontLeg1.matrix.translate(0.2, -0.12, -0.12); // find center of rotation
   frontLeg1.matrix.rotate(g_frontLegRAngle, 0, 0, 1, 0);
-  frontLeg1.matrix.translate(0.0, -0.15, -0.0);
+  frontLeg1.matrix.translate(0.0, -0.12, -0.0); // move the leg down
   frontLeg1.matrix.scale(0.05, 0.15, 0.05);
   frontLeg1.render();
+
+  // leg front (left) 2
+  var frontLeg2 = new Cube();
+  frontLeg2.color = [0.0, 0.0, 1.0, 1.0];
+  frontLeg2.matrix = new Matrix4(bodyCoordinatesMat);
+  frontLeg2.matrix.translate(0.2, -0.12, 0.12); // find center of rotation
+  frontLeg2.matrix.rotate(g_frontLegRAngle, 0, 0, 1, 0);
+  frontLeg2.matrix.translate(0.0, -0.12, -0.0); // move the leg down
+  frontLeg2.matrix.scale(0.05, 0.15, 0.05);
+  frontLeg2.render();
+
+  // leg back (right) 1
+  var backLeg1 = new Cube();
+  backLeg1.color = [0.0, 0.0, 1.0, 1.0];
+  frontLeg1.matrix = new Matrix4(bodyCoordinatesMat);
+  backLeg1.matrix.translate(-0.2, -0.12, -0.12); // find center of rotation
+  backLeg1.matrix.rotate(g_frontLegRAngle, 0, 0, 1, 0);
+  backLeg1.matrix.translate(0.0, -0.12, -0.0); // move the leg down
+  backLeg1.matrix.scale(0.05, 0.15, 0.05);
+  backLeg1.render();
+
+  // leg back (left) 2
+  var backLeg2 = new Cube();
+  backLeg2.color = [0.0, 0.0, 1.0, 1.0];
+  backLeg2.matrix = new Matrix4(bodyCoordinatesMat);
+  backLeg2.matrix.translate(-0.2, -0.12, 0.12); // find center of rotation
+  backLeg2.matrix.rotate(g_frontLegRAngle, 0, 0, 1, 0);
+  backLeg2.matrix.translate(0.0, -0.12, -0.0); // move the leg down
+  backLeg2.matrix.scale(0.05, 0.15, 0.05);
+  backLeg2.render();
   /*
   // copy leg front (right) 1
   var frontLeg1 = new Cube();
@@ -414,6 +444,7 @@ function renderAllShapes(){
   //frontLeg1.matrix.scale(3.5, 2, 0);
   //frontLeg1.matrix.translate(0.01, -0.5, 0);
   frontLeg1.render();
+  */
   /*
   // leg front (left) 2
   var frontLeg2 = new Cube();
