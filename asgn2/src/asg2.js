@@ -86,21 +86,21 @@ function connectVariablesToGLSL(){
 
 }
 
-const POINT = 0;
-const TRIANGLE = 1;
-const CIRCLE = 2;
+//const POINT = 0;
+//const TRIANGLE = 1;
+//const CIRCLE = 2;
 
-let g_selectedColor = [1.0, 1.0, 1.0, 1.0];
-let g_selectedSize = 5;
-let g_circleSegmentNum = 10;
-let g_selectedShape = POINT;
+//let g_selectedColor = [1.0, 1.0, 1.0, 1.0];
+//let g_selectedSize = 5;
+//let g_circleSegmentNum = 10;
+//let g_selectedShape = POINT;
 let g_globalAngle = 0;
 let g_bodyAngle = 0;
 let g_Animiation = false;
 
 function addUI(){
 
-  document.getElementById('clear').onclick = function(){
+  /*document.getElementById('clear').onclick = function(){
     {g_shapesList = []};
     renderAllShapes();
   }
@@ -135,7 +135,7 @@ function addUI(){
 
   document.getElementById('opacitySlide').addEventListener('mouseup', function() {
     g_selectedColor[3] = this.value/100;
-  });
+  });*/
 
   document.getElementById('bodyJointSlide').addEventListener('mousemove', function() {
     g_bodyAngle = this.value;
@@ -159,7 +159,7 @@ function addUI(){
 
 
 
-  document.getElementById('undo').onclick = function(){
+  /*document.getElementById('undo').onclick = function(){
     if(g_shapesList.length > 0){
       var undo = g_shapesList[g_shapesList.length - 1].undoCount;
 
@@ -176,7 +176,7 @@ function addUI(){
   g_selectedColor[2] = document.getElementById('blueSlide').value/100;
   g_selectedSize = document.getElementById('sizeSlide').value;
   g_circleSegmentNum = document.getElementById('cirSegSlide').value;
-  g_selectedColor[3] = document.getElementById('opacitySlide').value/100;
+  g_selectedColor[3] = document.getElementById('opacitySlide').value/100;*/
 }
 
 var g_undoCount = 0;
@@ -188,10 +188,16 @@ function main() {
 
   addUI();
 
+  // Specify the color for clearing <canvas>
+  gl.clearColor(0.0, 0.0, 0.0, 1.0);
+
+  // Clear <canvas>
+  gl.clear(gl.COLOR_BUFFER_BIT);
+
   
   // Register function (event handler) to be called on a mouse press
 
-  canvas.onmousedown = function(ev){
+  /*canvas.onmousedown = function(ev){
     g_undoCount += 1;
     click(ev);
   }
@@ -199,18 +205,17 @@ function main() {
     if(ev.buttons == 1){
       click(ev);
     }
-  };
+  };*/
 
-  // Specify the color for clearing <canvas>
-  gl.clearColor(0.0, 0.0, 0.0, 1.0);
+  renderAllShapes();
 
-  // Clear <canvas>
-  gl.clear(gl.COLOR_BUFFER_BIT);
+  tick();
+
 }
 
 var g_shapesList = [];
 
-function click(ev) {
+/*function click(ev) {
 
   let [x, y] = convertCoordEventToGL(ev);
 
@@ -236,7 +241,7 @@ function click(ev) {
   g_shapesList.push(point);
 
   renderAllShapes();
-}
+}*/
 
 function convertCoordEventToGL(ev){
 
@@ -259,7 +264,11 @@ function tick(){
   requestAnimationFrame(tick);
 }
 
+let g_PreviousTime = performance.now();
+
 function renderAllShapes(){
+
+  var startTime = performance.now();
 
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -347,4 +356,17 @@ function renderAllShapes(){
   box.matrix.scale(0.2, 0.4, 0.2);
   box.render();*/
 
+  console.log(startTime);
+
+  var duration = startTime - g_PreviousTime;
+  g_PreviousTime = startTime;
+  var fps = 1000/duration;
+
+  sendTextToHTML("ms: " + duration.toFixed(2) + " fps: " + fps.toFixed(2));
+
+}
+
+function sendTextToHTML(txt) {
+  var output = document.getElementById("fps");
+  output.innerHTML = txt;
 }
