@@ -104,6 +104,7 @@ let g_frontLegRAngle = 0;
 let g_frontLegLAngle = 0;
 let g_backLegRAngle = 0;
 let g_backLegLAngle = 0;
+let g_earsAngle = 0;
 
 let g_Animiation = false;
 
@@ -145,6 +146,11 @@ function addUI(){
   document.getElementById('opacitySlide').addEventListener('mouseup', function() {
     g_selectedColor[3] = this.value/100;
   });*/
+
+  document.getElementById('earsJointSlide').addEventListener('mousemove', function() {
+    g_earsAngle = this.value;
+    renderAllShapes();
+  });
 
   document.getElementById('headJointSlide').addEventListener('mousemove', function() {
     g_headAngle = this.value;
@@ -368,8 +374,8 @@ function renderAllShapes(){
   ear1.color = [1.0, 1.0, 0.0, 1.0];
   ear1.matrix = new Matrix4(headCoordinatesMat);
   ear1.matrix.translate(0.1,0.20, 0.1); // x = right; y = up;  z = into screen
-  //ear1.matrix.rotate(-5, 1, 0, 0);
-  ear1.matrix.scale(0.05, 0.05, 0.05);
+  ear1.matrix.rotate(g_earsAngle, 0, 1, 0, 0);
+  ear1.matrix.scale(0.02, 0.05, 0.05);
   ear1.render();
 
   // 2nd ear
@@ -377,8 +383,8 @@ function renderAllShapes(){
   ear2.color = [1.0, 1.0, 1.0, 1.0];
   ear2.matrix = new Matrix4(headCoordinatesMat);
   ear2.matrix.translate(0.1,0.2, -0.1); // x = right; y = up;  z = into screen
-  //ear2.matrix.rotate(-5, 1, 0, 0);
-  ear2.matrix.scale(0.05, 0.05, 0.05);
+  ear2.matrix.rotate(g_earsAngle, 0, 1, 0, 0);
+  ear2.matrix.scale(0.02, 0.05, 0.05);
   ear2.render();
 
   //nose/snout
