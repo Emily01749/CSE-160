@@ -392,7 +392,7 @@ function renderAllShapes(){
 
   // body 0.25, 0.15, 0.15
   // leg front (right) 1
-  var frontLeg1 = new Cube();
+  /*var frontLeg1 = new Cube();
   frontLeg1.color = [0.0, 0.0, 1.0, 1.0];
   frontLeg1.matrix = new Matrix4(bodyCoordinatesMat);
   frontLeg1.matrix.translate(0.2, -0.12, -0.12); // find center of rotation
@@ -406,30 +406,90 @@ function renderAllShapes(){
   frontLeg2.color = [0.0, 0.0, 1.0, 1.0];
   frontLeg2.matrix = new Matrix4(bodyCoordinatesMat);
   frontLeg2.matrix.translate(0.2, -0.12, 0.12); // find center of rotation
-  frontLeg2.matrix.rotate(g_frontLegRAngle, 0, 0, 1, 0);
+  frontLeg2.matrix.rotate(g_frontLegLAngle, 0, 0, 1, 0);
   frontLeg2.matrix.translate(0.0, -0.12, -0.0); // move the leg down
   frontLeg2.matrix.scale(0.05, 0.15, 0.05);
-  frontLeg2.render();
+  frontLeg2.render();*/
 
   // leg back (right) 1
   var backLeg1 = new Cube();
+  var toeback1 = new Pyramid();
   backLeg1.color = [0.0, 0.0, 1.0, 1.0];
-  frontLeg1.matrix = new Matrix4(bodyCoordinatesMat);
+  backLeg1.matrix = new Matrix4(bodyCoordinatesMat);
   backLeg1.matrix.translate(-0.2, -0.12, -0.12); // find center of rotation
+  backLeg1.matrix.rotate(g_backLegRAngle, 0, 0, 1, 0);
+  backLeg1.matrix.translate(0.0, -0.12, -0.0); // move the leg down
+  toeback1.matrix = new Matrix4(backLeg1.matrix);
+  toeback1.matrix.translate(0.05, -0.12, 0);
+  toeback1.matrix.rotate(-90,0,0,1);
+  toeback1.matrix.scale(0.03, 0.07, 0.05);
+  backLeg1.matrix.scale(0.05, 0.15, 0.05);
+  toeback1.render();
+  backLeg1.render();
+
+    // leg back (left) 1
+  backLeg1 = new Cube();
+  toeback1 = new Pyramid();
+  backLeg1.color = [0.0, 0.0, 1.0, 1.0];
+  backLeg1.matrix = new Matrix4(bodyCoordinatesMat);
+  backLeg1.matrix.translate(-0.2, -0.12, 0.12); // find center of rotation
+  backLeg1.matrix.rotate(g_backLegLAngle, 0, 0, 1, 0);
+  backLeg1.matrix.translate(0.0, -0.12, -0.0); // move the leg down
+  toeback1.matrix = new Matrix4(backLeg1.matrix);
+  toeback1.matrix.translate(0.05, -0.12, 0);
+  toeback1.matrix.rotate(-90,0,0,1);
+  toeback1.matrix.scale(0.03, 0.07, 0.05);
+  backLeg1.matrix.scale(0.05, 0.15, 0.05);
+  toeback1.render();
+  backLeg1.render();
+
+  // front leg (right) 1
+  backLeg1 = new Cube();
+  toeback1 = new Pyramid();
+  backLeg1.color = [0.0, 0.0, 1.0, 1.0];
+  backLeg1.matrix = new Matrix4(bodyCoordinatesMat);
+  backLeg1.matrix.translate(0.2, -0.12, -0.12); // find center of rotation
   backLeg1.matrix.rotate(g_frontLegRAngle, 0, 0, 1, 0);
   backLeg1.matrix.translate(0.0, -0.12, -0.0); // move the leg down
+  toeback1.matrix = new Matrix4(backLeg1.matrix);
+  toeback1.matrix.translate(0.05, -0.12, 0);
+  toeback1.matrix.rotate(-90,0,0,1);
+  toeback1.matrix.scale(0.03, 0.07, 0.05);
   backLeg1.matrix.scale(0.05, 0.15, 0.05);
+  toeback1.render();
+  backLeg1.render();
+
+  // front leg (left) 1
+  backLeg1 = new Cube();
+  toeback1 = new Pyramid();
+  backLeg1.color = [0.0, 0.0, 1.0, 1.0];
+  backLeg1.matrix = new Matrix4(bodyCoordinatesMat);
+  backLeg1.matrix.translate(0.2, -0.12, 0.12); // find center of rotation
+  backLeg1.matrix.rotate(g_frontLegLAngle, 0, 0, 1, 0);
+  backLeg1.matrix.translate(0.0, -0.12, -0.0); // move the leg down
+  toeback1.matrix = new Matrix4(backLeg1.matrix);
+  toeback1.matrix.translate(0.05, -0.12, 0);
+  toeback1.matrix.rotate(-90,0,0,1);
+  toeback1.matrix.scale(0.03, 0.07, 0.05);
+  backLeg1.matrix.scale(0.05, 0.15, 0.05);
+  toeback1.render();
   backLeg1.render();
 
   // leg back (left) 2
-  var backLeg2 = new Cube();
-  backLeg2.color = [0.0, 0.0, 1.0, 1.0];
-  backLeg2.matrix = new Matrix4(bodyCoordinatesMat);
-  backLeg2.matrix.translate(-0.2, -0.12, 0.12); // find center of rotation
-  backLeg2.matrix.rotate(g_frontLegRAngle, 0, 0, 1, 0);
-  backLeg2.matrix.translate(0.0, -0.12, -0.0); // move the leg down
-  backLeg2.matrix.scale(0.05, 0.15, 0.05);
-  backLeg2.render();
+  /*var backLeg2 = new Cube();
+  var toeback2 = new Pyramid();
+  //backLeg2.color = [0.0, 0.0, 1.0, 1.0];
+  //backLeg2.matrix = new Matrix4(bodyCoordinatesMat);
+  //backLeg2.matrix.translate(-0.2, -0.12, 0.12); // find center of rotation
+  //backLeg2.matrix.rotate(g_backLegLAngle, 0, 0, 1, 0);
+  //backLeg2.matrix.translate(0.0, -0.12, -0.0); // move the leg down
+  //backLeg2.matrix.scale(0.05, 0.15, 0.05);
+  toeback2.matrix = new Matrix4(backLeg2.matrix);
+  toeback2.matrix.translate(-0.05, -0.12, 0);
+  toeback2.matrix.rotate(-90,0,0,1);
+  toeback2.matrix.scale(0.03, 0.07, 0.05);
+  toeback2.render();
+  //backLeg2.render();
   /*
   // copy leg front (right) 1
   var frontLeg1 = new Cube();
