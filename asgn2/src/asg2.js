@@ -95,7 +95,16 @@ function connectVariablesToGLSL(){
 //let g_circleSegmentNum = 10;
 //let g_selectedShape = POINT;
 let g_globalAngle = 0;
+
 let g_headAngle = 0;
+
+let g_neckAngle = 0;
+
+let g_frontLegRAngle = 0;
+let g_frontLegLAngle = 0;
+let g_backLegRAngle = 0;
+let g_backLegLAngle = 0;
+
 let g_Animiation = false;
 
 function addUI(){
@@ -141,6 +150,33 @@ function addUI(){
     g_headAngle = this.value;
     renderAllShapes();
   });
+
+  document.getElementById('neckJointSlide').addEventListener('mousemove', function() {
+    g_neckAngle = this.value;
+    renderAllShapes();
+  });
+
+  
+  document.getElementById('frontLegRJointSlide').addEventListener('mousemove', function() {
+    g_frontLegRAngle = this.value;
+    renderAllShapes();
+  });
+
+  document.getElementById('frontLegLJointSlide').addEventListener('mousemove', function() {
+    g_frontLegLAngle = this.value;
+    renderAllShapes();
+  });
+
+  document.getElementById('backLegRJointSlide').addEventListener('mousemove', function() {
+    g_backLegRAngle = this.value;
+    renderAllShapes();
+  });
+
+  document.getElementById('backLegLJointSlide').addEventListener('mousemove', function() {
+    g_backLegLAngle = this.value;
+    renderAllShapes();
+  });
+
 
   document.getElementById('cameraAngleSlide').addEventListener('mousemove', function() {
     g_globalAngle = this.value;
@@ -305,11 +341,22 @@ function renderAllShapes(){
   //body.matrix.translate(0.01, -0.5, 0);
   body.render();
 
+  // neck
+  var neck = new Cube();
+  neck.matrix = new Matrix4(bodyCoordinatesMat);
+  neck.color = [1.0, 0.0, 0.0, 1.0];
+  neck.matrix.translate(0.25, 0.15 + 0.1/2, 0);
+  neck.matrix.rotate(0, 1, 0, 0);
+  neck.matrix.rotate(g_neckAngle, 0, 0, 1, 0);
+  var neckCoordinatesMat = new Matrix4(neck.matrix);
+  neck.matrix.scale(0.1, 0.1, 0.1);
+  neck.render();
+
   // head
   var head = new Cube();
-  head.matrix = new Matrix4(bodyCoordinatesMat);
+  head.matrix = new Matrix4(neckCoordinatesMat);
   head.color = [1.0, 0.0, 0.0, 1.0];
-  head.matrix.translate(0.25, 0.15 + 0.15/2, 0);
+  head.matrix.translate(0.15, 0.1 + 0.05/2, 0);
   head.matrix.rotate(0, 1, 0, 0);
   head.matrix.rotate(g_headAngle, 0, 1, 0, 0);
   var headCoordinatesMat = new Matrix4(head.matrix);
@@ -340,24 +387,35 @@ function renderAllShapes(){
   nose.color = [1.0, 0.0, 1.0, 1.0];
   nose.matrix.translate(0.15, -0.05, 0); // x = right; y = up;  z = into screen
   //nose.matrix.rotate(-5, 1, 0, 0);
-  nose.matrix.scale(0.3, 0.1, 0.1);
+  nose.matrix.scale(0.29, 0.1, 0.1);
   nose.render();
 
-  // leg front 1
+  // body 0.25, 0.15, 0.15
+  // leg front (right) 1
+  var frontLeg1 = new Cube();
+  frontLeg1.color = [0.0, 0.0, 1.0, 1.0];
+  frontLeg1.matrix = new Matrix4(bodyCoordinatesMat);
+  frontLeg1.matrix.translate(0.2, -0.1, -0.1);
+  frontLeg1.matrix.rotate(g_frontLegRAngle, 0, 0, 1, 0);
+  frontLeg1.matrix.translate(0.0, -0.15, -0.0);
+  frontLeg1.matrix.scale(0.05, 0.15, 0.05);
+  frontLeg1.render();
+  /*
+  // copy leg front (right) 1
   var frontLeg1 = new Cube();
   frontLeg1.color = [0.0, 0.0, 1.0, 1.0];
   frontLeg1.matrix = new Matrix4(bodyCoordinatesMat);
   //frontLeg1.matrix.translate(-0.6,-0.4, -0.05);
   //frontLeg1.matrix.rotate(-5,1,0,0);
-  //frontLeg1.matrix.rotate(0, 1, 0, 0);
+  frontLeg1.matrix.rotate(g_frontLegRAngle, 0, 0, 1, 0);
   frontLeg1.matrix.translate(0.15, -0.15, -0.13);
   frontLeg1.matrix.scale(0.05, 0.15, 0.05);
   //var bodyCoordinatesMat = new Matrix4(body.matrix);
   //frontLeg1.matrix.scale(3.5, 2, 0);
   //frontLeg1.matrix.translate(0.01, -0.5, 0);
   frontLeg1.render();
-
-  // leg front 2
+  /*
+  // leg front (left) 2
   var frontLeg2 = new Cube();
   frontLeg2.color = [0.0, 0.0, 1.0, 1.0];
   frontLeg2.matrix = new Matrix4(bodyCoordinatesMat);
@@ -371,7 +429,7 @@ function renderAllShapes(){
   //frontLeg2.matrix.translate(0.01, -0.5, 0);
   frontLeg2.render();
 
-  // leg back 1
+  // leg back (right) 1
   var backLeg1 = new Cube();
   backLeg1.color = [0.0, 0.0, 1.0, 1.0];
   backLeg1.matrix = new Matrix4(bodyCoordinatesMat);
@@ -385,7 +443,7 @@ function renderAllShapes(){
   //backLeg1.matrix.translate(0.01, -0.5, 0);
   backLeg1.render();
 
-  // leg front 2
+  // leg back (left) 2
   var backLeg2 = new Cube();
   backLeg2.color = [0.0, 0.0, 1.0, 1.0];
   backLeg2.matrix = new Matrix4(bodyCoordinatesMat);
@@ -398,7 +456,7 @@ function renderAllShapes(){
   //backLeg2.matrix.scale(3.5, 2, 0);
   //backLeg2.matrix.translate(0.01, -0.5, 0);
   backLeg2.render();
-
+  */
   // tail
   var tail = new Cube();
   tail.color = [1.0, 1.0, 0.0, 1.0];
