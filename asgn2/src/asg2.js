@@ -189,7 +189,7 @@ function addUI(){
 
   };
   document.getElementById('AnimationOff').onclick = function() {
-    {g_Animiation = true};
+    {g_Animiation = false};
 
   };
 
@@ -294,9 +294,9 @@ function convertCoordEventToGL(ev){
 
 function tick(){
   console.log(performance.now());
-
-  renderAllShapes();
-
+  if(g_Animiation){
+    renderAllShapes();
+  }
   requestAnimationFrame(tick);
 }
 
