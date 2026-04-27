@@ -401,23 +401,30 @@ function renderAllShapes(){
 
   // tail
   var tail = new Cube();
-  tail.color = [0.0, 0.0, 1.0, 1.0];
+  tail.color = [1.0, 1.0, 0.0, 1.0];
   tail.matrix = new Matrix4(bodyCoordinatesMat);
   //tail.matrix.translate(-0.6,-0.4, -0.05);
   //tail.matrix.rotate(-5,1,0,0);
   //tail.matrix.rotate(0, 1, 0, 0);
   tail.matrix.translate(-0.25, 0.15, 0);  // x = right; y = up;  z = into screen
-  tail.matrix.scale(0.05, 0.05, 0.05);
+  var cloneTailCube = new Matrix4(tail.matrix);
+  tail.matrix.scale(0.03, 0.02, 0.02);
   //var bodyCoordinatesMat = new Matrix4(body.matrix);
   //tail.matrix.scale(3.5, 2, 0);
   //tail.matrix.translate(0.01, -0.5, 0);
   tail.render();
 
-  var cloneTailCube = new Matrix4(tail.matrix);
-
+  var seconds = performance.now() / 1000;
+  var tailAngle = 10 * Math.cos(seconds);
   for(var i = 0; i < 10; i++){
     var tailCubePiece = new Cube();
-    
+    tailCubePiece.color = [1.0, 1.0, 0.0, 1.0];
+    tailCubePiece.matrix = cloneTailCube;
+    tailCubePiece.matrix.translate(-0.05, 0, 0);
+    tailCubePiece.matrix.rotate(-40 + tailAngle, -50 + tailAngle, 60 + tailAngle, 0);
+    cloneTailCube = new Matrix4(tailCubePiece.matrix);
+    tailCubePiece.matrix.scale(0.03, 0.02, 0.02);
+    tailCubePiece.render();
   }
 
   /*var leftArm = new Cube();
