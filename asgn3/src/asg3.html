@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title> Painting </title>
+  </head>
+
+  <body onload="main()">
+    <style>
+      .container {
+        display: flex;
+      }
+      .container div {
+        margin: 10px;
+      }
+
+    </style>
+    <div style="padding-left:10px">
+      Emily Mayer <br>
+      etmayer@ucsc.edu <br>
+      Notes: <br>
+
+      <div style="padding-left:10px">
+      None
+      </div>
+
+    </div>
+
+      <div style="display: inline-block"> 
+        <canvas id="webgl" width="400" height="400">
+        Please use a browser that supports "canvas"
+        </canvas>
+      </div>
+
+    
+    <div id="fps" style="color:black;">
+      ms: 0 fps: 0
+    </div>
+    
+    <br>
+    <br>
+    Animation: 
+    <button type="button" id="AnimationOn">On</button>
+    <button type="button" id="AnimationOff">Off</button>
+
+    <br>
+    Ears <input type="range" min="-90" max="90" value="0" class="slider" id="earsJointSlide">
+
+    <br>
+    Head <input type="range" min="-90" max="90" value="0" class="slider" id="headJointSlide">
+    
+    <br>
+    Neck <input type="range" min="-60" max="60" value="0" class="slider" id="neckJointSlide">
+
+    <br>
+    Front Leg Right <input type="range" min="-60" max="60" value="0" class="slider" id="frontLegRJointSlide">
+
+    <br>
+    Front Leg Left <input type="range" min="-60" max="60" value="0" class="slider" id="frontLegLJointSlide">
+
+    <br>
+    Back Leg Right <input type="range" min="-60" max="60" value="0" class="slider" id="backLegRJointSlide">
+
+    <br>
+    Back Leg Left <input type="range" min="-60" max="60" value="0" class="slider" id="backLegLJointSlide">
+
+    <br>
+    Camera Angle <input type="range" min="0" max="360" value="360" class="slider" id="cameraAngleSlide">
+
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script src="../lib/cuon-matrix.js"></script>
+    <script src="asg3.js"></script>
+    <script src="Circle.js"></script>
+    <script src="Triangle.js"></script>
+    <script src="ModifiedTriangle.js"></script>
+    <script src="Point.js"></script>
+    <script src= "Cube.js"></script>
+    <script src= "Pyramid.js"></script>
+
+  </body>
+</html>
