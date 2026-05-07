@@ -1,23 +1,23 @@
 // ColoredPoint.js (c) 2012 matsuda
 // Vertex shader program
-var VSHADER_SOURCE =
-  'attribute vec4 a_Position;\n' +
-  'uniform mat4 u_ModelMatrix;\n' +
-  'uniform mat4 u_GlobalRotateMatrix;\n' +
-  'uniform float u_Size;\n' +
-  'void main() {\n' +
-  '  gl_Position = u_GlobalRotateMatrix * u_ModelMatrix * a_Position;\n' +
-  '  gl_PointSize = 10.0;\n' +
-  '  gl_PointSize = u_Size;\n' +
-  '}\n';
+var VSHADER_SOURCE = `
+   attribute vec4 a_Position;
+   uniform mat4 u_ModelMatrix;
+   uniform mat4 u_GlobalRotateMatrix;
+   uniform float u_Size;
+   void main() {
+     gl_Position = u_GlobalRotateMatrix * u_ModelMatrix * a_Position;
+     gl_PointSize = 10.0;
+     gl_PointSize = u_Size;
+   }`;
 
 // Fragment shader program
-var FSHADER_SOURCE =
-  'precision mediump float;\n' +
-  'uniform vec4 u_FragColor;\n' +
-  'void main() {\n' +
-  '  gl_FragColor = u_FragColor;\n' +
-  '}\n';
+var FSHADER_SOURCE = `
+   precision mediump float;
+   uniform vec4 u_FragColor;
+   void main() {
+     gl_FragColor = u_FragColor;
+   }`;
 
 // Global var
 let canvas;
@@ -88,56 +88,9 @@ function connectVariablesToGLSL(){
 
 let g_globalAngle = 0;
 
-let g_headAngle = 0;
-
-let g_neckAngle = 0;
-
-let g_frontLegRAngle = 0;
-let g_frontLegLAngle = 0;
-let g_backLegRAngle = 0;
-let g_backLegLAngle = 0;
-let g_earsAngle = 0;
-
 let g_Animiation = false;
 
 function addUI(){
-
-  document.getElementById('earsJointSlide').addEventListener('mousemove', function() {
-    g_earsAngle = this.value;
-    renderAllShapes();
-  });
-
-  document.getElementById('headJointSlide').addEventListener('mousemove', function() {
-    g_headAngle = this.value;
-    renderAllShapes();
-  });
-
-  document.getElementById('neckJointSlide').addEventListener('mousemove', function() {
-    g_neckAngle = this.value;
-    renderAllShapes();
-  });
-
-  
-  document.getElementById('frontLegRJointSlide').addEventListener('mousemove', function() {
-    g_frontLegRAngle = this.value;
-    renderAllShapes();
-  });
-
-  document.getElementById('frontLegLJointSlide').addEventListener('mousemove', function() {
-    g_frontLegLAngle = this.value;
-    renderAllShapes();
-  });
-
-  document.getElementById('backLegRJointSlide').addEventListener('mousemove', function() {
-    g_backLegRAngle = this.value;
-    renderAllShapes();
-  });
-
-  document.getElementById('backLegLJointSlide').addEventListener('mousemove', function() {
-    g_backLegLAngle = this.value;
-    renderAllShapes();
-  });
-
 
   document.getElementById('cameraAngleSlide').addEventListener('mousemove', function() {
     g_globalAngle = this.value;
