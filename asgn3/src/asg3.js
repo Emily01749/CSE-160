@@ -86,14 +86,6 @@ function connectVariablesToGLSL(){
 
 }
 
-//const POINT = 0;
-//const TRIANGLE = 1;
-//const CIRCLE = 2;
-
-//let g_selectedColor = [1.0, 1.0, 1.0, 1.0];
-//let g_selectedSize = 5;
-//let g_circleSegmentNum = 10;
-//let g_selectedShape = POINT;
 let g_globalAngle = 0;
 
 let g_headAngle = 0;
@@ -109,43 +101,6 @@ let g_earsAngle = 0;
 let g_Animiation = false;
 
 function addUI(){
-
-  /*document.getElementById('clear').onclick = function(){
-    {g_shapesList = []};
-    renderAllShapes();
-  }
-  
-  document.getElementById('point').onclick = function(){
-    {g_selectedShape = POINT};
-  }
-  document.getElementById('triangle').onclick = function(){
-    {g_selectedShape = TRIANGLE};
-  }
-  document.getElementById('circle').onclick = function(){
-    {g_selectedShape = CIRCLE};
-  }
-
-  document.getElementById('redSlide').addEventListener('mouseup', function() {
-    g_selectedColor[0] = this.value/100;
-  });
-  document.getElementById('greenSlide').addEventListener('mouseup', function() {
-    g_selectedColor[1] = this.value/100;
-  });
-  document.getElementById('blueSlide').addEventListener('mouseup', function() {
-    g_selectedColor[2] = this.value/100;
-  });
-
-  document.getElementById('sizeSlide').addEventListener('mouseup', function() {
-    g_selectedSize = this.value;
-  });
-
-  document.getElementById('cirSegSlide').addEventListener('mouseup', function() {
-    g_circleSegmentNum = this.value;
-  });
-
-  document.getElementById('opacitySlide').addEventListener('mouseup', function() {
-    g_selectedColor[3] = this.value/100;
-  });*/
 
   document.getElementById('earsJointSlide').addEventListener('mousemove', function() {
     g_earsAngle = this.value;
@@ -198,30 +153,7 @@ function addUI(){
     {g_Animiation = false};
 
   };
-
-
-
-  /*document.getElementById('undo').onclick = function(){
-    if(g_shapesList.length > 0){
-      var undo = g_shapesList[g_shapesList.length - 1].undoCount;
-
-      while(g_shapesList.length > 0 && g_shapesList[g_shapesList.length - 1].undoCount == undo){
-        g_shapesList.pop();
-      }
-
-      renderAllShapes();
-    }
-  };
-
-  g_selectedColor[0] = document.getElementById('redSlide').value/100;
-  g_selectedColor[1] = document.getElementById('greenSlide').value/100;
-  g_selectedColor[2] = document.getElementById('blueSlide').value/100;
-  g_selectedSize = document.getElementById('sizeSlide').value;
-  g_circleSegmentNum = document.getElementById('cirSegSlide').value;
-  g_selectedColor[3] = document.getElementById('opacitySlide').value/100;*/
 }
-
-var g_undoCount = 0;
 
 function main() {
 
@@ -299,7 +231,6 @@ function convertCoordEventToGL(ev){
 }
 
 function tick(){
-  console.log(performance.now());
   if(g_Animiation){
     renderAllShapes();
   }
@@ -314,24 +245,9 @@ function renderAllShapes(){
 
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-  //gl.clear(gl.COLOR_BUFFER_BIT);
 
   var globalRotMat = new Matrix4().rotate(g_globalAngle, 0, 1, 0);
   gl.uniformMatrix4fv(u_GlobalRotateMatrix, false, globalRotMat.elements);
-
-  //var len = g_shapesList.length;
-
-  //gl.enable(gl.BLEND);
-  //gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-  //gl.disable(gl.DEPTH_TEST);
-
-  /*for(var i = 0; i < len; i++) {
-
-    g_shapesList[i].render();
-
-  }*/
-  var tri = new Triangle();
-  //tri.drawTriangle3D([-1.0, 0.0, 0.0, -0.5,-1.0,0.0, 0.0,0.0,0.0]);
   
   // body
   var body = new Cube();
