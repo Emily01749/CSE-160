@@ -3,7 +3,7 @@
 var VSHADER_SOURCE = `
   precision mediump float;
   attribute vec4 a_Position;
-  attribute vec4 a_UV;
+  attribute vec2 a_UV;
   varying vec2 v_UV;
   uniform mat4 u_ModelMatrix;
   uniform mat4 u_GlobalRotateMatrix;
@@ -90,11 +90,11 @@ function connectVariablesToGLSL(){
   }
 
   // Get the storage location of u_FragColor
-  u_Size = gl.getUniformLocation(gl.program, 'u_Size');
+  /*u_Size = gl.getUniformLocation(gl.program, 'u_Size');
   if (!u_Size) {
     console.log('Failed to get the storage location of u_Size');
     return;
-  }
+  }*/
 
 }
 
