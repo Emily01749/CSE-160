@@ -35,6 +35,7 @@ let u_FragColor;
 let u_Size;
 let u_ModelMatrix;
 let u_GlobalRotateMatrix;
+let u_Sampler;
 
 function setupWebGL(){
   // Retrieve <canvas> element
@@ -91,6 +92,12 @@ function connectVariablesToGLSL(){
     return;
   }
 
+  u_Sampler = gl.getUniformLocation(gl.program, 'u_Sampler');
+  if (!u_Sampler) {
+    console.log('Failed to get the storage location of u_Sampler');
+    return false;
+  }
+
   // Get the storage location of u_FragColor
   /*u_Size = gl.getUniformLocation(gl.program, 'u_Size');
   if (!u_Size) {
@@ -128,13 +135,7 @@ function initTextures(gl, n) {
     console.log('Failed to create the texture object');
     return false;
   }
-
-  // Get the storage location of u_Sampler
-  var u_Sampler = gl.getUniformLocation(gl.program, 'u_Sampler');
-  if (!u_Sampler) {
-    console.log('Failed to get the storage location of u_Sampler');
-    return false;
-  }
+  
   var image = new Image();  // Create the image object
   if (!image) {
     console.log('Failed to create the image object');
