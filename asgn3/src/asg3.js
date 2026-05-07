@@ -1,28 +1,34 @@
 // ColoredPoint.js (c) 2012 matsuda
 // Vertex shader program
 var VSHADER_SOURCE = `
-   attribute vec4 a_Position;
-   uniform mat4 u_ModelMatrix;
-   uniform mat4 u_GlobalRotateMatrix;
-   uniform float u_Size;
-   void main() {
-     gl_Position = u_GlobalRotateMatrix * u_ModelMatrix * a_Position;
-     gl_PointSize = 10.0;
-     gl_PointSize = u_Size;
-   }`;
+  precision mediump float;
+  attribute vec4 a_Position;
+  attribute vec4 a_UV;
+  varying vec2 v_UV;
+  uniform mat4 u_ModelMatrix;
+  uniform mat4 u_GlobalRotateMatrix;
+  void main() {
+    gl_Position = u_GlobalRotateMatrix * u_ModelMatrix * a_Position;
+    v_UV = a_UV;
+  }`;
 
 // Fragment shader program
 var FSHADER_SOURCE = `
    precision mediump float;
+   varying vec2 v_UV;
    uniform vec4 u_FragColor;
    void main() {
      gl_FragColor = u_FragColor;
+     gl_FragColor = vec4(v_UV, 1.0, 1.0);
    }`;
 
 // Global var
 let canvas;
 let gl;
+
 let a_Position;
+let a_UV;
+
 let u_FragColor;
 let u_Size;
 let u_ModelMatrix;
@@ -55,6 +61,12 @@ function connectVariablesToGLSL(){
   a_Position = gl.getAttribLocation(gl.program, 'a_Position');
   if (a_Position < 0) {
     console.log('Failed to get the storage location of a_Position');
+    return;
+  }
+
+  a_UV = gl.getAttribLocation(gl.program, 'a_UV');
+  if (a_UV < 0) {
+    console.log('Failed to get the storage location of a_UV');
     return;
   }
 
