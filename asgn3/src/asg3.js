@@ -7,8 +7,10 @@ var VSHADER_SOURCE = `
   varying vec2 v_UV;
   uniform mat4 u_ModelMatrix;
   uniform mat4 u_GlobalRotateMatrix;
+  uniform mat4 u_ProjectionMatrix;
+  uniform mat4 u_ViewMatrix;
   void main() {
-    gl_Position = u_GlobalRotateMatrix * u_ModelMatrix * a_Position;
+    gl_Position = u_ProjectionMatrix * u_ViewMatrix * u_GlobalRotateMatrix * u_ModelMatrix * a_Position;
     v_UV = a_UV;
   }`;
 
@@ -18,7 +20,7 @@ var FSHADER_SOURCE = `
    varying vec2 v_UV;
    uniform vec4 u_FragColor;
    uniform sampler2D u_Sampler;
-   uniform float u_SelectTexture;
+   uniform float u_SelectTexture; // Fix mix texture & color w/ interpolation
    void main() {
       float select = u_SelectTexture;
       if(select == 0.0){
@@ -42,7 +44,11 @@ let u_Size;
 let u_ModelMatrix;
 let u_GlobalRotateMatrix;
 let u_Sampler;
+
 let u_SelectTexture;
+
+let u_ProjectionMatrix;
+let u_ViewMatrix;
 
 function setupWebGL(){
   // Retrieve <canvas> element
@@ -108,6 +114,18 @@ function connectVariablesToGLSL(){
   u_Sampler = gl.getUniformLocation(gl.program, 'u_Sampler');
   if (!u_Sampler) {
     console.log('Failed to get the storage location of u_Sampler');
+    return false;
+  }
+
+  u_ProjectionMatrix = gl.getUniformLocation(gl.program, 'u_ProjectionMatrix');
+  if (!u_ProjectionMatrix) {
+    console.log('Failed to get the storage location of u_ProjectionMatrix');
+    return false;
+  }
+
+  u_ViewMatrix = gl.getUniformLocation(gl.program, 'u_ViewMatrix');
+  if (!u_ViewMatrix) {
+    console.log('Failed to get the storage location of u_ViewMatrix');
     return false;
   }
 
@@ -272,6 +290,14 @@ let g_PreviousTime = performance.now();
 function renderAllShapes(){
 
   var startTime = performance.now();
+
+  var projMatrix = new Matrix4();
+  projMatrix.setPerspective(120, canvas.width/canvas.height, 1, 100)
+  gl.uniformMatrix4fv(u_ProjectionMatrix, false, projMatrix.elements);
+
+  var viewMatrix = new Matrix4();
+  viewMatrix.setLookAt(0,0,1,  0,0,0,  0,1,0); // eye, at, up
+  gl.uniformMatrix4fv(u_ViewMatrix, false, viewMatrix.elements);
 
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
