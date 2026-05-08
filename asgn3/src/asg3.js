@@ -18,10 +18,16 @@ var FSHADER_SOURCE = `
    varying vec2 v_UV;
    uniform vec4 u_FragColor;
    uniform sampler2D u_Sampler;
+   uniform float u_SelectTexture;
    void main() {
-     gl_FragColor = u_FragColor;
-     gl_FragColor = vec4(v_UV, 1.0, 1.0);
-     gl_FragColor = texture2D(u_Sampler, v_UV);
+      float select = u_SelectTexture;
+      if(select == 0.0){
+        gl_FragColor = u_FragColor;
+      } else if(select == 1.0){
+        gl_FragColor = texture2D(u_Sampler, v_UV);
+      } else {
+        gl_FragColor = vec4(v_UV, 1.0, 1.0);
+      }
    }`;
 
 // Global var
@@ -36,6 +42,7 @@ let u_Size;
 let u_ModelMatrix;
 let u_GlobalRotateMatrix;
 let u_Sampler;
+let u_SelectTexture;
 
 function setupWebGL(){
   // Retrieve <canvas> element
@@ -77,6 +84,12 @@ function connectVariablesToGLSL(){
   u_FragColor = gl.getUniformLocation(gl.program, 'u_FragColor');
   if (!u_FragColor) {
     console.log('Failed to get the storage location of u_FragColor');
+    return;
+  }
+
+  u_SelectTexture = gl.getUniformLocation(gl.program, 'u_SelectTexture');
+  if (!u_SelectTexture) {
+    console.log('Failed to get the storage location of u_SelectTexture');
     return;
   }
 
@@ -272,6 +285,14 @@ function renderAllShapes(){
   var bodyCoordinatesMat = new Matrix4(body.matrix);
   body.matrix.scale(0.25, 0.15, 0.15);
   body.render();
+
+  var head = new Cube();
+  head.color = [1.0, 1.0, 0.0, 1.0];
+  var headCoordinatesMat = new Matrix4(body.matrix);
+  head.textureNum = 0.0;
+  head.matrix.translate(0.45, 0, 0);
+  head.matrix.scale(0.15, 0.15, 0.15);
+  head.render();
 
   var duration = startTime - g_PreviousTime;
   g_PreviousTime = startTime;
