@@ -211,6 +211,8 @@ function main() {
   // Specify the color for clearing <canvas>
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
+
+  document.onkeydown = keydown;
   initTextures(gl,0);
 
   // Clear <canvas>
@@ -233,6 +235,18 @@ function main() {
 
   tick();
 
+}
+
+function keydown(ev){
+    if(ev.keyCode ==  65){ // keyboard A
+      g_eye[0] += 0.2;
+    }
+    if(ev.keyCode == 68){ // keyboard D
+      g_eye[0] -= 0.2;
+    }
+
+    renderAllShapes();
+    console.log(ev.keyCode);
 }
 
 var g_shapesList = [];
