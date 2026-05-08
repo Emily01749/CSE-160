@@ -287,16 +287,20 @@ function tick(){
 
 let g_PreviousTime = performance.now();
 
+var g_eye = [0, 0, 3];
+var g_at = [0, 1, 0];
+var g_up = [0, 1, 0];
+
 function renderAllShapes(){
 
   var startTime = performance.now();
 
   var projMatrix = new Matrix4();
-  projMatrix.setPerspective(120, canvas.width/canvas.height, 1, 100)
+  projMatrix.setPerspective(50, canvas.width/canvas.height, 1, 100)
   gl.uniformMatrix4fv(u_ProjectionMatrix, false, projMatrix.elements);
 
   var viewMatrix = new Matrix4();
-  viewMatrix.setLookAt(0,0,1,  0,0,0,  0,1,0); // eye, at, up
+  viewMatrix.setLookAt(g_eye[0],g_eye[1],g_eye[2],  g_at[0],g_at[1],g_at[2],  g_up[0],g_up[1],g_up[2]); // eye, at, up
   gl.uniformMatrix4fv(u_ViewMatrix, false, viewMatrix.elements);
 
   // Clear <canvas>
