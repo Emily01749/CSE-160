@@ -242,13 +242,15 @@ function main() {
 
 function keydown(ev){
     if(ev.keyCode == 87){ // keyboard W
-      //console.log("beforeMoveForward", g_camera.eye.elements, g_camera);
-      //g_camera.moveForward();
-      //console.log("aftMoveForward", g_camera.eye.elements, g_camera);
-      g_camera.eye.elements[1] += 0.2;
+      g_camera.moveForward();
+      console.log("player is at ", g_camera.eye.elements, "looking at ", g_camera.at.elements);
+      //g_camera.eye.elements[1] += 0.2;
     }
     if(ev.keyCode ==  65){ // keyboard A
       g_camera.eye.elements[0] += 0.2;
+    }
+    if(ev.keyCode == 83){
+      g_camera.moveBackwards();
     }
     if(ev.keyCode == 68){ // keyboard D
       g_camera.eye.elements[0] -= 0.2;

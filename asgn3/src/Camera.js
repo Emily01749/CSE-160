@@ -2,12 +2,12 @@ class Camera{
     constructor(){
         this.fov = 60; // field of view
 
-        //this.eye = new Vector3([0, 0, 0]);
-        //this.at = new Vector3([0, 0, -1]);
-        //this.up = new Vector3([0, 1, 0]);
-        this.eye = new Vector3([0, 0, 3]);
-        this.at = new Vector3([0, 1, 0]);
+        this.eye = new Vector3([0, 0, 0]);
+        this.at = new Vector3([0, 0, -1]);
         this.up = new Vector3([0, 1, 0]);
+        //this.eye = new Vector3([0, 0, 3]);
+        //this.at = new Vector3([0, 1, 0]);
+        //this.up = new Vector3([0, 1, 0]);
 
         this.viewMatrix = new Matrix4();
 
@@ -39,10 +39,24 @@ class Camera{
         f.sub(this.eye);
         f.normalize();
 
-        let speed = 20;
+        let speed = -1;
         f.mul(speed);
         this.eye = this.eye.add(f);
         this.at = this.at.add(f);
-        console.log("aft add", this.at, this.eye)
+        console.log("aft add", this.at, this.eye);
+    }
+
+    moveBackwards(){
+        // b = eye - at
+        let b = new Vector3();
+        b = b.set(this.eye);
+        b.sub(this.at);
+        b.normalize();
+
+        let speed = -1;
+        b.mul(speed);
+        this.eye = this.eye.add(b);
+        this.at = this.at.add(b);
+        console.log("aft add", this.at, this.eye);
     }
 }
