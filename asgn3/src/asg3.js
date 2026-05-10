@@ -368,7 +368,7 @@ function renderAllShapes(){
   var sky = new Cube();
   sky.color = [1.0, 1.0, 0.0, 1.0];
   sky.textureNum = 1.0;
-  //sky.matrix.scale(20,20,20);
+  sky.matrix.scale(1000,1000,1000);
   sky.render();
 
   var floor = new Cube();

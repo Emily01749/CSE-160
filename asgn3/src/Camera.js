@@ -28,7 +28,7 @@ class Camera{
             this.up.elements[0], this.up.elements[1], this.up.elements[2]
         );
 
-        this.projectionMatrix.setPerspective(50, canvas.width/canvas.height, 1, 100);
+        this.projectionMatrix.setPerspective(50, canvas.width/canvas.height, 1, 2000);
     }
 
     moveForward(){
