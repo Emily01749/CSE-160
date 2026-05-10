@@ -43,7 +43,7 @@ class Camera{
         f.mul(speed);
         this.eye = this.eye.add(f);
         this.at = this.at.add(f);
-        console.log("aft add", this.at, this.eye);
+        //console.log("aft add", this.at, this.eye);
     }
 
     moveBackwards(){
@@ -57,7 +57,7 @@ class Camera{
         b.mul(speed);
         this.eye = this.eye.add(b);
         this.at = this.at.add(b);
-        console.log("aft add", this.at, this.eye);
+        //console.log("aft add", this.at, this.eye);
     }
 
     moveLeft(){
@@ -88,4 +88,21 @@ class Camera{
         this.at = this.at.add(s);
 
     }
+
+    panLeft(){
+        // f = at - eye
+        let f = new Vector3();
+        f = f.set(this.at);
+        f.sub(this.eye);
+        console.log("f: ", f);
+        let alpha = 1; // degrees
+        let rotationMatrix = new Matrix4();
+        console.log("x: ", this.up.elements[0], "y: ", this.up.elements[1], "z: ", this.up.elements[2]);
+        rotationMatrix.setRotate(alpha, this.up.elements[0], this.up.elements[1], this.up.elements[2]);
+        console.log("Rotation Matrix, ", rotationMatrix);
+        let fPrime = rotationMatrix.multiplyVector3(f);
+        console.log("fPrime, ", fPrime);
+        this.at = this.eye.add(fPrime);
+    }
+
 }

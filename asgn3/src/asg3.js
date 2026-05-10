@@ -257,7 +257,9 @@ function keydown(ev){
       //g_camera.eye.elements[0] += 0.2;
       g_camera.moveRight();
     }
-
+    if(ev.keyCode == 81){ // key Q
+      g_camera.panLeft();
+    }
     renderAllShapes();
     console.log(ev.keyCode);
 }
