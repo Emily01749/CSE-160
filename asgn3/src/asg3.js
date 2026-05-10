@@ -28,7 +28,9 @@ var FSHADER_SOURCE = `
       } else if(select == 1.0){
         gl_FragColor = texture2D(u_Sampler, v_UV);
       } else {
-        gl_FragColor = vec4(v_UV, 1.0, 1.0);
+        vec4 baseColor = vec4(v_UV, 1.0, 1.0);
+        vec4 texColor = texture2D(u_Sampler, v_UV);
+        gl_FragColor = (1.0 - select) * baseColor + select * texColor;
       }
    }`;
 
@@ -374,8 +376,8 @@ function renderAllShapes(){
   var floor = new Cube();
   floor.color = [1.0, 1.0, 1.0, 1.0];
   floor.textureNum = 0.0;
-  floor.matrix.translate(0, -.75, 25);
-  floor.matrix.scale(10, 0.1, 10);
+  floor.matrix.translate(0, -3, 0);
+  floor.matrix.scale(50, 0.1, 50);
   //floor.matrix.translate(-.5, 0, -.5);
   floor.render();
 
@@ -383,7 +385,7 @@ function renderAllShapes(){
   g_PreviousTime = startTime;
   var fps = 1000/duration;
 
-  sendTextToHTML("ms: " + duration.toFixed(2) + " fps: " + fps.toFixed(2));
+  sendTextToHTML("ms: " + duration.toFixed(2) + " fps: " + fps.toFixed(2) + " eye: " + g_camera.eye.elements[0] + ", " + g_camera.eye.elements[1] + ", " + g_camera.eye.elements[2]);
 
 }
 

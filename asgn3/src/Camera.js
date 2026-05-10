@@ -39,7 +39,7 @@ class Camera{
         f.sub(this.eye);
         f.normalize();
 
-        let speed = -1;
+        let speed = 1;
         f.mul(speed);
         this.eye = this.eye.add(f);
         this.at = this.at.add(f);
@@ -53,7 +53,7 @@ class Camera{
         b.sub(this.at);
         b.normalize();
 
-        let speed = -1;
+        let speed = 1;
         b.mul(speed);
         this.eye = this.eye.add(b);
         this.at = this.at.add(b);
@@ -68,7 +68,7 @@ class Camera{
         let s = Vector3.cross(this.up, f);
         s.normalize();
         // g_camera.eye.elements[0] -= 0.2;
-        let speed = -0.2;
+        let speed = 0.2;
         s.mul(speed);
         this.eye = this.eye.add(s);
         this.at = this.at.add(s);
@@ -82,7 +82,7 @@ class Camera{
         let s = Vector3.cross(f, this.up);
         s.normalize();
         // g_camera.eye.elements[0] += 0.2;
-        let speed = -0.2;
+        let speed = 0.2;
         s.mul(speed);
         this.eye = this.eye.add(s);
         this.at = this.at.add(s);
