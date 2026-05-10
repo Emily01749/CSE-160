@@ -142,6 +142,8 @@ let g_globalAngle = 0;
 
 let g_Animiation = false;
 
+let g_camera = undefined;
+
 function addUI(){
 
   document.getElementById('cameraAngleSlide').addEventListener('mousemove', function() {
@@ -200,7 +202,6 @@ function loadTexture(gl, n, texture, u_Sampler, image) {
   gl.drawArrays(gl.TRIANGLE_STRIP, 0, n); // Draw the rectangle
 }
 
-
 function main() {
 
   setupWebGL();
@@ -211,6 +212,8 @@ function main() {
   // Specify the color for clearing <canvas>
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
+  g_camera = new Camera();
+  console.log("in main Camera", g_camera);
 
   document.onkeydown = keydown;
   initTextures(gl,0);
@@ -238,11 +241,17 @@ function main() {
 }
 
 function keydown(ev){
+    if(ev.keyCode == 87){ // keyboard W
+      //console.log("beforeMoveForward", g_camera.eye.elements, g_camera);
+      //g_camera.moveForward();
+      //console.log("aftMoveForward", g_camera.eye.elements, g_camera);
+      g_camera.eye.elements[1] += 0.2;
+    }
     if(ev.keyCode ==  65){ // keyboard A
-      g_eye[0] += 0.2;
+      g_camera.eye.elements[0] += 0.2;
     }
     if(ev.keyCode == 68){ // keyboard D
-      g_eye[0] -= 0.2;
+      g_camera.eye.elements[0] -= 0.2;
     }
 
     renderAllShapes();
@@ -301,21 +310,29 @@ function tick(){
 
 let g_PreviousTime = performance.now();
 
-var g_eye = [0, 0, 3];
-var g_at = [0, 1, 0];
-var g_up = [0, 1, 0];
+//var g_camera.eye.elements = [0, 0, 3];
+//var g_camera.at.elements = [0, 1, 0];
+//var g_camera.up.elements = [0, 1, 0];
 
 function renderAllShapes(){
 
   var startTime = performance.now();
 
-  var projMatrix = new Matrix4();
-  projMatrix.setPerspective(50, canvas.width/canvas.height, 1, 100)
-  gl.uniformMatrix4fv(u_ProjectionMatrix, false, projMatrix.elements);
+  /*var projMatrix = new Matrix4();
+  projMatrix.setPerspective(50, canvas.width/canvas.height, 1, 100);
+  //gl.uniformMatrix4fv(u_ProjectionMatrix, false, projMatrix.elements);
 
   var viewMatrix = new Matrix4();
-  viewMatrix.setLookAt(g_eye[0],g_eye[1],g_eye[2],  g_at[0],g_at[1],g_at[2],  g_up[0],g_up[1],g_up[2]); // eye, at, up
-  gl.uniformMatrix4fv(u_ViewMatrix, false, viewMatrix.elements);
+  viewMatrix.setLookAt(g_camera.eye.elements[0],g_camera.eye.elements[1],g_camera.eye.elements[2],  g_camera.at.elements[0],g_camera.at.elements[1],g_camera.at.elements[2],  g_camera.up.elements[0],g_camera.up.elements[1],g_camera.up.elements[2]); // eye, at, up
+  //gl.uniformMatrix4fv(u_ViewMatrix, false, viewMatrix.elements);*/
+
+  g_camera.viewPerspective();
+
+  //console.log(g_camera);
+  gl.uniformMatrix4fv(u_ProjectionMatrix, false, g_camera.projectionMatrix.elements);
+  gl.uniformMatrix4fv(u_ViewMatrix, false, g_camera.viewMatrix.elements);
+
+  //console.log(g_camera.viewMatrix.elements, viewMatrix.elements)
 
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
