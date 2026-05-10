@@ -254,7 +254,8 @@ function keydown(ev){
       g_camera.moveBackwards();
     }
     if(ev.keyCode == 68){ // keyboard D
-      g_camera.eye.elements[0] += 0.2;
+      //g_camera.eye.elements[0] += 0.2;
+      g_camera.moveRight();
     }
 
     renderAllShapes();
