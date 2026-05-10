@@ -91,6 +91,9 @@ class Camera{
 
     panLeft(){
         // f = at - eye
+        console.log("panLeft start ", this);
+        console.log("panLeft eye ", this.eye.elements);
+        console.log("panLeft at ", this.at.elements);
         let f = new Vector3();
         f = f.set(this.at);
         f.sub(this.eye);
@@ -102,7 +105,8 @@ class Camera{
         console.log("Rotation Matrix, ", rotationMatrix);
         let fPrime = rotationMatrix.multiplyVector3(f);
         console.log("fPrime, ", fPrime);
-        this.at = this.eye.add(fPrime);
+        this.at = fPrime.add(this.eye);
+        console.log("panLeft end ", this);
     }
 
     panRight(){
@@ -118,7 +122,7 @@ class Camera{
         console.log("Rotation Matrix, ", rotationMatrix);
         let fPrime = rotationMatrix.multiplyVector3(f);
         console.log("fPrime, ", fPrime);
-        this.at = this.eye.add(fPrime);
+        this.at = fPrime.add(this.eye);
     }
 
 }
