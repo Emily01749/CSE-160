@@ -105,4 +105,20 @@ class Camera{
         this.at = this.eye.add(fPrime);
     }
 
+    panRight(){
+        // f = at - eye
+        let f = new Vector3();
+        f = f.set(this.at);
+        f.sub(this.eye);
+        console.log("f: ", f);
+        let alpha = -1; // degrees
+        let rotationMatrix = new Matrix4();
+        console.log("x: ", this.up.elements[0], "y: ", this.up.elements[1], "z: ", this.up.elements[2]);
+        rotationMatrix.setRotate(alpha, this.up.elements[0], this.up.elements[1], this.up.elements[2]);
+        console.log("Rotation Matrix, ", rotationMatrix);
+        let fPrime = rotationMatrix.multiplyVector3(f);
+        console.log("fPrime, ", fPrime);
+        this.at = this.eye.add(fPrime);
+    }
+
 }

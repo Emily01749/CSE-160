@@ -260,6 +260,9 @@ function keydown(ev){
     if(ev.keyCode == 81){ // key Q
       g_camera.panLeft();
     }
+    if(ev.keyCode == 69){ // key E
+      g_camera.panRight();
+    }
     renderAllShapes();
     console.log(ev.keyCode);
 }
