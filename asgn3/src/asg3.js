@@ -364,6 +364,21 @@ function renderAllShapes(){
   head.matrix.scale(0.15, 0.15, 0.15);
   head.render();
 
+  var sky = new Cube();
+  sky.color = [1.0, 1.0, 0.0, 1.0];
+  sky.textureNum = 1.0;
+  sky.matrix.scale(50,50,50);
+  sky.matrix.translate(-.5, -.5, 0.5);
+  sky.render();
+
+  var floor = new Cube();
+  floor.color = [1.0, 1.0, 1.0, 1.0];
+  floor.textureNum = 0.0;
+  floor.matrix.translate(0, -.75, 0);
+  floor.matrix.scale(10, 0, 10);
+  floor.matrix.translate(-.5, 0, -.5);
+  floor.render();
+
   var duration = startTime - g_PreviousTime;
   g_PreviousTime = startTime;
   var fps = 1000/duration;
