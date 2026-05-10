@@ -247,13 +247,14 @@ function keydown(ev){
       //g_camera.eye.elements[1] += 0.2;
     }
     if(ev.keyCode ==  65){ // keyboard A
-      g_camera.eye.elements[0] += 0.2;
+      //g_camera.eye.elements[0] -= 0.2;
+      g_camera.moveLeft();
     }
     if(ev.keyCode == 83){
       g_camera.moveBackwards();
     }
     if(ev.keyCode == 68){ // keyboard D
-      g_camera.eye.elements[0] -= 0.2;
+      g_camera.eye.elements[0] += 0.2;
     }
 
     renderAllShapes();
