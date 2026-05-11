@@ -4,6 +4,9 @@ class Triangle{
         this.position = pos;
         this.color = color;
         this.size = size;
+
+        this.vertexBuffer = gl.createBuffer();
+        this.uvBuffer = gl.createBuffer();
     }
 
     //initVertexBuffers(gl) {
@@ -44,7 +47,7 @@ class Triangle{
         /*var vertices = new Float32Array([
             0, 0.5,   -0.5, -0.5,   0.5, -0.5
         ]);*/
-        var n = 3; // The number of vertices
+        var n = vertices.length/3; // The number of vertices
 
         // Create a buffer object
         var vertexBuffer = gl.createBuffer();
@@ -74,17 +77,17 @@ class Triangle{
     }
 
      drawTriangle3Duv(vertices, uv){
-        var n = 3; // The number of vertices
+        var n = vertices.length/3; // The number of vertices
 
         // Create a buffer object
-        var vertexBuffer = gl.createBuffer();
-        if (!vertexBuffer) {
+        //var vertexBuffer = gl.createBuffer();
+        if (!this.vertexBuffer) {
             console.log('Failed to create the buffer object');
             return -1;
         }
 
         // Bind the buffer object to target
-        gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexBuffer);
         // Write date into the buffer object
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
 
@@ -95,12 +98,12 @@ class Triangle{
         gl.enableVertexAttribArray(a_Position);
 
 
-        var uvBuffer = gl.createBuffer();
-        if (!uvBuffer) {
+        //var uvBuffer = gl.createBuffer();
+        if (!this.uvBuffer) {
             console.log('Failed to create the buffer object');
             return -1;
         }
-        gl.bindBuffer(gl.ARRAY_BUFFER, uvBuffer);
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.uvBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(uv), gl.DYNAMIC_DRAW);
 
         gl.vertexAttribPointer(a_UV, 2, gl.FLOAT, false, 0, 0);

@@ -392,7 +392,7 @@ function buildMap(){
 function drawWalls(walls){
   for(let i = 0; i < walls.length; i++){
     //console.log("waall[i] ", walls[i]);
-    walls[i].render();
+    walls[i].renderfast();
   }
 }
 
