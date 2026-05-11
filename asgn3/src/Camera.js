@@ -2,7 +2,7 @@ class Camera{
     constructor(){
         this.fov = 60; // field of view
 
-        this.eye = new Vector3([0, 3, 0]);
+        this.eye = new Vector3([0, 0, 0]);
         this.at = new Vector3([0, 0, -1]);
         this.up = new Vector3([0, 1, 0]);
         //this.eye = new Vector3([0, 0, 3]);
@@ -19,6 +19,10 @@ class Camera{
 
         this.projectionMatrix = new Matrix4();
         //this.projectionMatrix.setPerspective(this.fov, canvas.width/canvas.height, 0.1, 1000);
+        
+        this.p = 0;
+        this.y = 0;
+    
     }
 
     viewPerspective(){

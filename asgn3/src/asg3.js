@@ -204,6 +204,39 @@ function loadTexture(gl, n, texture, u_Sampler, image) {
   gl.drawArrays(gl.TRIANGLE_STRIP, 0, n); // Draw the rectangle
 }
 
+function mouseClick(){
+  let lastX = 0;
+  let lastY = 0;
+
+  canvas.addEventListener('mousedown', function(ev){
+    lastX = ev.ClientX;
+    lastY = ev.ClientY;
+
+    renderAllShapes();
+  });
+
+  canvas.addEventListener('mousemove', function(ev){
+    if(ev.buttons === 1){
+      let dx = ev.clientX - lastX;
+      let dy = ev.clientY - lastY;
+
+      if(dx > 0){
+        console.log("panningRight")
+        g_camera.panRight();
+      }
+      if(dx < 0){
+        g_camera.panLeft();
+      }
+
+      lastX = ev.clientX;
+      lastY = ev.clientY;
+    }
+
+    renderAllShapes();
+
+  });
+}
+
 let g_walls;
 
 function main() {
@@ -220,6 +253,8 @@ function main() {
   console.log("in main Camera", g_camera);
 
   document.onkeydown = keydown;
+  mouseClick();
+
   initTextures(gl,0);
 
 
