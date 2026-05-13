@@ -28,10 +28,6 @@ class Vector3 {
         s = src.elements;
         d = this.elements;
 
-        console.log("s",s);
-        console.log("src", src);
-        console.log("s[0]", s[0]);
-
         if (s === d) {
           return;
         }
