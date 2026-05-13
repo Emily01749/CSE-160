@@ -6,7 +6,7 @@ class Cube{
         //this.size = 5.0;
         //this.segments = 10;
         this.matrix = new Matrix4();
-        this.textureNum = 1.0;
+        this.textureNum = 0.0;
 
         this.tri = new Triangle();
     }
