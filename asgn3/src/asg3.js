@@ -321,7 +321,7 @@ function main() {
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
   g_camera = new Camera();
-  console.log("in main Camera", g_camera);
+  //console.log("in main Camera", g_camera);
 
   document.onkeydown = keydown;
   mouseClick();
@@ -383,7 +383,7 @@ function keydown(ev){
       obliterateBlock();
     }
     renderAllShapes();
-    console.log(ev.keyCode);
+    //console.log(ev.keyCode);
 }
 
 function placeBlock(numToAdd = 1){
@@ -418,7 +418,7 @@ function placeBlock(numToAdd = 1){
 
   g_walls = buildMap();
 
-  console.log("placing block", g_camera.eye, g_camera.at);
+  //console.log("placing block", g_camera.eye, g_camera.at);
 }
 
 function obliterateBlock(){
@@ -471,7 +471,7 @@ function convertCoordEventToGL(ev){
 }
 
 function tick(){
-  console.log("tick");
+  //console.log("tick");
   if(g_Animiation){
     renderAllShapes();
   }

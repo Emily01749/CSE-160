@@ -95,22 +95,22 @@ class Camera{
 
     panLeft(){
         // f = at - eye
-        console.log("panLeft start ", this);
-        console.log("panLeft eye ", this.eye.elements);
-        console.log("panLeft at ", this.at.elements);
+        //console.log("panLeft start ", this);
+        //console.log("panLeft eye ", this.eye.elements);
+        //console.log("panLeft at ", this.at.elements);
         let f = new Vector3();
         f = f.set(this.at);
         f.sub(this.eye);
-        console.log("f: ", f);
+        //console.log("f: ", f);
         let alpha = 1; // degrees
         let rotationMatrix = new Matrix4();
-        console.log("x: ", this.up.elements[0], "y: ", this.up.elements[1], "z: ", this.up.elements[2]);
+        //console.log("x: ", this.up.elements[0], "y: ", this.up.elements[1], "z: ", this.up.elements[2]);
         rotationMatrix.setRotate(alpha, this.up.elements[0], this.up.elements[1], this.up.elements[2]);
-        console.log("Rotation Matrix, ", rotationMatrix);
+        //console.log("Rotation Matrix, ", rotationMatrix);
         let fPrime = rotationMatrix.multiplyVector3(f);
-        console.log("fPrime, ", fPrime);
+        //console.log("fPrime, ", fPrime);
         this.at = fPrime.add(this.eye);
-        console.log("panLeft end ", this);
+        //console.log("panLeft end ", this);
     }
 
     panRight(){
@@ -118,14 +118,14 @@ class Camera{
         let f = new Vector3();
         f = f.set(this.at);
         f.sub(this.eye);
-        console.log("f: ", f);
+        //console.log("f: ", f);
         let alpha = -1; // degrees
         let rotationMatrix = new Matrix4();
-        console.log("x: ", this.up.elements[0], "y: ", this.up.elements[1], "z: ", this.up.elements[2]);
+        //console.log("x: ", this.up.elements[0], "y: ", this.up.elements[1], "z: ", this.up.elements[2]);
         rotationMatrix.setRotate(alpha, this.up.elements[0], this.up.elements[1], this.up.elements[2]);
-        console.log("Rotation Matrix, ", rotationMatrix);
+        //console.log("Rotation Matrix, ", rotationMatrix);
         let fPrime = rotationMatrix.multiplyVector3(f);
-        console.log("fPrime, ", fPrime);
+        //console.log("fPrime, ", fPrime);
         this.at = fPrime.add(this.eye);
     }
 
