@@ -365,7 +365,7 @@ function keydown(ev){
     console.log(ev.keyCode);
 }
 
-function placeBlock(){
+function placeBlock(numToAdd = 1){
   let eye_x = g_camera.eye.elements[0]
   let eye_y = g_camera.eye.elements[2]
 
@@ -385,7 +385,11 @@ function placeBlock(){
 
   console.log(eye_x, blockToAdd_x);
   if(blockToAdd_x >= 0 && blockToAdd_x < 32){
-    g_map[blockToAdd_x][blockToAdd_y] += 1;
+    g_map[blockToAdd_x][blockToAdd_y] += numToAdd;
+
+    if(g_map[blockToAdd_x][blockToAdd_y] < 0){
+      g_map[blockToAdd_x][blockToAdd_y] = 0;
+    }
   }
   else{
     console.log("invalid");
@@ -397,9 +401,9 @@ function placeBlock(){
 }
 
 function obliterateBlock(){
-  g_map[5][5] -= 1;
+  placeBlock(-1);
 
-  g_walls = buildMap();
+  //g_walls = buildMap();
 }
 
 var g_shapesList = [];
