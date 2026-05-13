@@ -38,7 +38,7 @@ class Camera{
     moveForward(){
         // f = at - eye
         let f = new Vector3();
-        console.log("this.at", this.at);
+        //console.log("this.at", this.at);
         f = f.set(this.at);
         f.sub(this.eye);
         f.normalize();

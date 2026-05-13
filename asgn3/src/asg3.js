@@ -21,6 +21,7 @@ var FSHADER_SOURCE = `
    uniform vec4 u_FragColor;
    uniform sampler2D u_Sampler;
    uniform sampler2D u_Sampler1;
+   uniform sampler2D u_Sampler2;
    uniform float u_SelectTexture;
    void main() {
       float select = u_SelectTexture;
@@ -30,6 +31,8 @@ var FSHADER_SOURCE = `
         gl_FragColor = texture2D(u_Sampler, v_UV);
       } else if(select == 2.0){
         gl_FragColor = texture2D(u_Sampler1, v_UV);
+      } else if(select == 3.0){
+        gl_FragColor = texture2D(u_Sampler2, v_UV);
       } else {
         vec4 baseColor = vec4(v_UV, 1.0, 1.0);
         vec4 texColor = texture2D(u_Sampler, v_UV);
@@ -50,6 +53,7 @@ let u_ModelMatrix;
 let u_GlobalRotateMatrix;
 let u_Sampler;
 let u_Sampler1;
+let u_Sampler2;
 
 let u_SelectTexture;
 
@@ -128,6 +132,12 @@ function connectVariablesToGLSL(){
     console.log('Failed to get the storage location of u_Sampler1');
     return false;
   }
+  
+  u_Sampler2 = gl.getUniformLocation(gl.program, 'u_Sampler2');
+  if (!u_Sampler2) {
+    console.log('Failed to get the storage location of u_Sampler2');
+    return false;
+  }
 
   u_ProjectionMatrix = gl.getUniformLocation(gl.program, 'u_ProjectionMatrix');
   if (!u_ProjectionMatrix) {
@@ -152,7 +162,7 @@ function connectVariablesToGLSL(){
 
 let g_globalAngle = 0;
 
-let g_Animiation = false;
+let g_Animiation = true;
 
 let g_camera = undefined;
 
@@ -179,6 +189,7 @@ function textures(gl) {
 
   textures.sky = loadTexture(gl, "sky.jpg");
   textures.dirt = loadTexture(gl, "coarse_dirt.png");
+  textures.bee = loadTexture(gl, "bee.png");
 
   return textures;
 }
@@ -189,8 +200,9 @@ function initTextures(gl, n) {
   // Create a texture object
   var texture0 = gl.createTexture(); 
   var texture1 = gl.createTexture();
+  var texture2 = gl.createTexture();
 
-  if (!texture0 || !texture1) {
+  if (!texture0 || !texture1 || !texture2) {
     console.log('Failed to create the texture object');
     return false;
   }
@@ -206,32 +218,41 @@ function initTextures(gl, n) {
   // Create the image object
   var image0 = new Image();
   var image1 = new Image();
-  if (!image0 || !image1) {
+  var image2 = new Image();
+  if (!image0 || !image1 || !image2) {
     console.log('Failed to create the image object');
     return false;
   }
   // Register the event handler to be called when image loading is completed
   image0.onload = function(){ loadTexture(gl, n, texture0, u_Sampler, image0, 0); };
   image1.onload = function(){ loadTexture(gl, n, texture1, u_Sampler1, image1, 1); };
+  image2.onload = function(){ loadTexture(gl, n, texture2, u_Sampler2, image2, 2); };
   // Tell the browser to load an Image
   image0.src = 'sky.jpg';
   image1.src = 'coarse_dirt.png';
+  image2.src = 'bee.png';
 
   return true;
 }
 // Specify whether the texture unit is ready to use
-var g_texUnit0 = false, g_texUnit1 = false;
+var g_texUnit0 = false, g_texUnit1 = false, g_texUnit2 = false;
 
 function loadTexture(gl, n, texture, u_Sampler, image, texUnit) {
   //gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);// Flip the image's y-axis
   
+  //console.log(image, texUnit);
   // Make the texture unit active
   if (texUnit == 0) {
     gl.activeTexture(gl.TEXTURE0);
     g_texUnit0 = true;
-  } else {
+  } 
+  else if(texUnit == 1){
     gl.activeTexture(gl.TEXTURE1);
     g_texUnit1 = true;
+  }
+  else {
+    gl.activeTexture(gl.TEXTURE2);
+    g_texUnit2 = true;
   }
   // Bind the texture object to the target
   gl.bindTexture(gl.TEXTURE_2D, texture);   
@@ -246,9 +267,9 @@ function loadTexture(gl, n, texture, u_Sampler, image, texUnit) {
   // Clear <canvas>
   //gl.clear(gl.COLOR_BUFFER_BIT);
 
-  console.log("loadTexture", gl, n, texture, u_Sampler, image, texUnit);
+  //console.log("loadTexture", gl, n, texture, u_Sampler, image, texUnit);
 
-  if (g_texUnit0 && g_texUnit1) {
+  if (g_texUnit0 && g_texUnit1 && g_texUnit2) {
     //gl.drawArrays(gl.TRIANGLE_STRIP, 0, n);   // Draw the rectangle
     renderAllShapes();
   }
@@ -309,7 +330,7 @@ function main() {
 
 
   g_walls = buildMap();
-  console.log(g_walls);
+  //console.log(g_walls);
   // Clear <canvas>
   //gl.clear(gl.COLOR_BUFFER_BIT);
 
@@ -326,16 +347,16 @@ function main() {
     }
   };*/
 
-  renderAllShapes();
-
   tick();
 
+
+  renderAllShapes();
 }
 
 function keydown(ev){
     if(ev.keyCode == 87){ // keyboard W
       g_camera.moveForward();
-      console.log("player is at ", g_camera.eye.elements, "looking at ", g_camera.at.elements);
+      //console.log("player is at ", g_camera.eye.elements, "looking at ", g_camera.at.elements);
       //g_camera.eye.elements[1] += 0.2;
     }
     if(ev.keyCode ==  65){ // keyboard A
@@ -383,7 +404,7 @@ function placeBlock(numToAdd = 1){
   let blockToAdd_x = Math.round(eye_x + direction_x * 5);
   let blockToAdd_y = Math.round(eye_y + direction_y * 5);
 
-  console.log(eye_x, blockToAdd_x);
+  //console.log(eye_x, blockToAdd_x);
   if(blockToAdd_x >= 0 && blockToAdd_x < 32){
     g_map[blockToAdd_x][blockToAdd_y] += numToAdd;
 
@@ -450,6 +471,7 @@ function convertCoordEventToGL(ev){
 }
 
 function tick(){
+  console.log("tick");
   if(g_Animiation){
     renderAllShapes();
   }
@@ -543,6 +565,8 @@ let g_PreviousTime = performance.now();
 //var g_camera.at.elements = [0, 1, 0];
 //var g_camera.up.elements = [0, 1, 0];
 
+let g_beeLocation = new Vector3(0, 0, 0);
+
 function renderAllShapes(){
 
   var startTime = performance.now();
@@ -614,6 +638,29 @@ function renderAllShapes(){
   drawWalls(g_walls);
 
   //return;
+
+  var bee = new Cube();
+  bee.color = [1.0, 1.0, 0.0, 1.0];
+  bee.textureNum = 3.0;
+  bee.matrix.translate(g_beeLocation.elements[0], g_beeLocation.elements[1], g_beeLocation.elements[2]);
+  g_beeLocation.elements[1] = 5;
+   
+  if(g_beeLocation.elements[2] < g_camera.eye.elements[2]){
+    g_beeLocation.elements[2] += 0.02;
+  }
+  else{
+    g_beeLocation.elements[2] -= 0.02;
+  }
+
+  if(g_beeLocation.elements[0] < g_camera.eye.elements[0]){
+    g_beeLocation.elements[0] += 0.02;
+  }
+  else{
+    g_beeLocation.elements[0] -= 0.02;
+  }
+  //bee.matrix.scale(50, 0.1, 50);
+  bee.render();
+
 
   var duration = startTime - g_PreviousTime;
   g_PreviousTime = startTime;
