@@ -366,11 +366,34 @@ function keydown(ev){
 }
 
 function placeBlock(){
-  g_map[5][5] += 1;
+  let eye_x = g_camera.eye.elements[0]
+  let eye_y = g_camera.eye.elements[2]
+
+  let at_x = g_camera.at.elements[0];
+  let at_y = g_camera.at.elements[2];
+
+  let direction_x = at_x - eye_x;
+  let direction_y = at_y - eye_y;
+
+  // Normalize
+  let length = Math.sqrt(direction_x * direction_x + direction_y * direction_y);
+  direction_x /= length;
+  direction_y /= length;
+
+  let blockToAdd_x = Math.round(eye_x + direction_x * 5);
+  let blockToAdd_y = Math.round(eye_y + direction_y * 5);
+
+  console.log(eye_x, blockToAdd_x);
+  if(blockToAdd_x >= 0 && blockToAdd_x < 32){
+    g_map[blockToAdd_x][blockToAdd_y] += 1;
+  }
+  else{
+    console.log("invalid");
+  }
 
   g_walls = buildMap();
 
-  console.log("placing block");
+  console.log("placing block", g_camera.eye, g_camera.at);
 }
 
 function obliterateBlock(){
@@ -586,7 +609,7 @@ function renderAllShapes(){
 
   drawWalls(g_walls);
 
-  return;
+  //return;
 
   var duration = startTime - g_PreviousTime;
   g_PreviousTime = startTime;
