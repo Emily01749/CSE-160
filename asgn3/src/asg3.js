@@ -355,8 +355,28 @@ function keydown(ev){
     if(ev.keyCode == 69){ // key E
       g_camera.panRight();
     }
+    if(ev.keyCode == 80){ // key P (place block)
+      placeBlock();
+    }
+    if(ev.keyCode == 79){ // key O (obliterate block)
+      obliterateBlock();
+    }
     renderAllShapes();
     console.log(ev.keyCode);
+}
+
+function placeBlock(){
+  g_map[5][5] += 1;
+
+  g_walls = buildMap();
+
+  console.log("placing block");
+}
+
+function obliterateBlock(){
+  g_map[5][5] -= 1;
+
+  g_walls = buildMap();
 }
 
 var g_shapesList = [];
