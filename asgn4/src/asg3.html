@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title> Blocky World </title>
+  </head>
+
+  <body onload="main()">
+    <style>
+      .container {
+        display: flex;
+      }
+      .container div {
+        margin: 10px;
+      }
+
+    </style>
+    <div style="padding-left:10px">
+      Emily Mayer <br>
+      etmayer@ucsc.edu <br>
+      Notes: <br>
+
+      <div style="padding-left:10px">
+        To place blocks: press P key <br>
+        To delete blocks: press O key <br> <br>
+
+        Bee chases player around <br>
+        Move backwards to see solid base color floor with no texture <br>
+      <br>
+      </div>
+
+    </div>
+
+      <div style="display: inline-block"> 
+        <canvas id="webgl" width="1000" height="1000">
+        Please use a browser that supports "canvas"
+        </canvas>
+      </div>
+
+    
+    <div id="fps" style="color:black;">
+      ms: 0 fps: 0
+    </div>
+    
+    <br>
+    <br>
+    Animation: 
+    <button type="button" id="AnimationOn">On</button>
+    <button type="button" id="AnimationOff">Off</button>
+
+    <br>
+    Camera Angle <input type="range" min="0" max="360" value="360" class="slider" id="cameraAngleSlide">
+
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script src="../lib/cuon-matrix-cse160.js"></script>
+    <script src="asg3.js"></script>
+    <script src="Camera.js"></script>
+    <script src="Circle.js"></script>
+    <script src="Triangle.js"></script>
+    <script src="ModifiedTriangle.js"></script>
+    <script src="Point.js"></script>
+    <script src= "Cube.js"></script>
+    <script src= "Pyramid.js"></script>
+
+  </body>
+</html>
