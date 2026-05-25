@@ -7,6 +7,7 @@ var VSHADER_SOURCE = `
   attribute vec3 a_Normal;
   varying vec2 v_UV;
   varying vec3 v_Normal;
+  varying vec4 v_VertPos;
   uniform mat4 u_ModelMatrix;
   uniform mat4 u_GlobalRotateMatrix;
   uniform mat4 u_ProjectionMatrix;
@@ -16,6 +17,7 @@ var VSHADER_SOURCE = `
     v_UV = a_UV;
     //v_Normal = a_Normal;
     v_Normal = normalize(mat3(u_ModelMatrix) * a_Normal);
+    v_VertPos = u_ModelMatrix * a_Position;
 
   }`;
 
@@ -24,11 +26,13 @@ var FSHADER_SOURCE = `
    precision mediump float;
    varying vec2 v_UV;
    varying vec3 v_Normal;
+   varying vec4 v_VertPos;
    uniform vec4 u_FragColor;
    uniform sampler2D u_Sampler;
    uniform sampler2D u_Sampler1;
    uniform sampler2D u_Sampler2;
    uniform float u_SelectTexture;
+   uniform vec3 u_lightPos;
    void main() {
       float select = u_SelectTexture;
       if(select == 0.0){
@@ -41,11 +45,33 @@ var FSHADER_SOURCE = `
         gl_FragColor = texture2D(u_Sampler2, v_UV);
       } else if(select == 4.0){
         gl_FragColor = vec4((v_Normal+1.0)/2.0, 1.0);
-      } else {
+      } else if(select > 0.0 && select < 1.0){
         vec4 baseColor = vec4(v_UV, 1.0, 1.0);
         vec4 texColor = texture2D(u_Sampler, v_UV);
         gl_FragColor = (1.0 - select) * baseColor + select * texColor;
+      } else if(select == 5.0){
+        vec4 baseColor = vec4(v_UV, 1.0, 1.0);
+        vec4 texColor = texture2D(u_Sampler, v_UV);
+
+        vec3 L = normalize(u_lightPos - v_VertPos.xyz);
+        vec3 N = -normalize(v_Normal);
+        float diffuse = max(dot(N, L), 0.0);
+
+        float ambient = 0.2;
+        float lighting = ambient + diffuse;
+        lighting = clamp(lighting, 0.0, 1.0);
+
+        gl_FragColor = vec4(baseColor.rgb * lighting, baseColor.a);
       }
+
+      /*vec3 lightVector = vec3(v_VertPos) - u_lightPos;
+      float r = length(lightVector);
+      if(r<1.0){
+        gl_FragColor = vec4(1,0,0,1);
+      }
+      else if(r < 2.0){
+        gl_FragColor = vec4(0,1,0,1);
+      }*/
    }`;
 
 // Global var
@@ -68,6 +94,8 @@ let u_SelectTexture;
 
 let u_ProjectionMatrix;
 let u_ViewMatrix;
+
+let u_lightPos;
 
 function setupWebGL(){
   // Retrieve <canvas> element
@@ -163,6 +191,12 @@ function connectVariablesToGLSL(){
   u_ViewMatrix = gl.getUniformLocation(gl.program, 'u_ViewMatrix');
   if (!u_ViewMatrix) {
     console.log('Failed to get the storage location of u_ViewMatrix');
+    return false;
+  }
+
+  u_lightPos = gl.getUniformLocation(gl.program, 'u_lightPos');
+  if (!u_lightPos) {
+    console.log('Failed to get the storage location of u_lightPos');
     return false;
   }
 
@@ -695,6 +729,8 @@ function renderAllShapes(){
 
   drawWalls(g_walls);
 
+  gl.uniform3f(u_lightPos, g_lightPosX, g_lightPosY, g_lightPosZ);
+
   var light = new Cube();
   light.color = [2.0, 2.0, 0.0, 1.0];
   light.textureNum = 0.0;
@@ -710,7 +746,7 @@ function renderAllShapes(){
     sphere.textureNum = 4.0;
   }
   else{
-    sphere.textureNum = 0.0;
+    sphere.textureNum = 5.0;
   }
   sphere.matrix.scale(10, 10, 10);
   sphere.render();
