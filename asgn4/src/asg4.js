@@ -34,35 +34,38 @@ var FSHADER_SOURCE = `
    uniform float u_SelectTexture;
    uniform vec3 u_lightPos;
    void main() {
+      vec4 baseColor;
       float select = u_SelectTexture;
+
       if(select == 0.0){
-        gl_FragColor = u_FragColor;
-      } else if(select == 1.0){
-        gl_FragColor = texture2D(u_Sampler, v_UV);
-      } else if(select == 2.0){
-        gl_FragColor = texture2D(u_Sampler1, v_UV);
-      } else if(select == 3.0){
-        gl_FragColor = texture2D(u_Sampler2, v_UV);
-      } else if(select == 4.0){
-        gl_FragColor = vec4((v_Normal+1.0)/2.0, 1.0);
-      } else if(select > 0.0 && select < 1.0){
-        vec4 baseColor = vec4(v_UV, 1.0, 1.0);
-        vec4 texColor = texture2D(u_Sampler, v_UV);
-        gl_FragColor = (1.0 - select) * baseColor + select * texColor;
-      } else if(select == 5.0){
-        vec4 baseColor = vec4(v_UV, 1.0, 1.0);
-        vec4 texColor = texture2D(u_Sampler, v_UV);
-
-        vec3 L = normalize(u_lightPos - v_VertPos.xyz);
-        vec3 N = -normalize(v_Normal);
-        float diffuse = max(dot(N, L), 0.0);
-
-        float ambient = 0.2;
-        float lighting = ambient + diffuse;
-        lighting = clamp(lighting, 0.0, 1.0);
-
-        gl_FragColor = vec4(baseColor.rgb * lighting, baseColor.a);
+          baseColor = u_FragColor;
       }
+      else if(select == 1.0){
+          baseColor = texture2D(u_Sampler, v_UV);
+      }
+      else if(select == 2.0){
+          baseColor = texture2D(u_Sampler1, v_UV);
+      }
+      else if(select == 3.0){
+          baseColor = texture2D(u_Sampler2, v_UV);
+      }
+      else if(select == 4.0){
+          baseColor = vec4((v_Normal + 1.0) / 2.0, 1.0);
+      }
+      else {
+          vec4 texColor = texture2D(u_Sampler, v_UV);
+          baseColor = mix(vec4(v_UV, 1.0, 1.0), texColor, select);
+      }
+
+      vec3 L = normalize(u_lightPos - v_VertPos.xyz);
+      vec3 N = normalize(v_Normal);
+      float diffuse = max(dot(N, L), 0.0);
+
+      float ambient = 0.2;
+      float lighting = ambient + diffuse;
+      lighting = clamp(lighting, 0.0, 1.0);
+
+      gl_FragColor = vec4(baseColor.rgb * lighting, baseColor.a);
 
       /*vec3 lightVector = vec3(v_VertPos) - u_lightPos;
       float r = length(lightVector);
@@ -213,6 +216,10 @@ let g_camera = undefined;
 let g_lightPosX = 0;
 let g_lightPosY = 100;  
 let g_lightPosZ = -200;  
+
+let g_lightAnimX = 0;
+let g_lightAnimY = 0;
+let g_lightAnimZ = 0;
 
 function addUI(){
 
@@ -550,6 +557,10 @@ function convertCoordEventToGL(ev){
 function tick(){
   //console.log("tick");
   if(g_Animiation){
+    let lightingTime = performance.now() * 0.001;
+    g_lightPosX = Math.cos(lightingTime) * 20;
+    g_lightPosZ = Math.sin(lightingTime) * 20;
+
     renderAllShapes();
   }
   requestAnimationFrame(tick);
@@ -735,6 +746,7 @@ function renderAllShapes(){
   light.color = [2.0, 2.0, 0.0, 1.0];
   light.textureNum = 0.0;
   //console.log(" Light Postions: ", g_lightPosX, g_lightPosY, g_lightPosZ);
+  light.matrix.translate(0, 2,  20);
   light.matrix.translate(g_lightPosX, g_lightPosY,  g_lightPosZ);
   light.matrix.scale(100, 10, 10);
   light.render();
@@ -746,7 +758,7 @@ function renderAllShapes(){
     sphere.textureNum = 4.0;
   }
   else{
-    sphere.textureNum = 5.0;
+    sphere.textureNum = 0.0;
   }
   sphere.matrix.scale(10, 10, 10);
   sphere.render();
