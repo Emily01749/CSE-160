@@ -33,6 +33,7 @@ var FSHADER_SOURCE = `
    uniform sampler2D u_Sampler2;
    uniform float u_SelectTexture;
    uniform vec3 u_lightPos;
+   uniform float u_LightOn;
    void main() {
       vec4 baseColor;
       float select = u_SelectTexture;
@@ -59,13 +60,17 @@ var FSHADER_SOURCE = `
 
       vec3 L = normalize(u_lightPos - v_VertPos.xyz);
       vec3 N = normalize(v_Normal);
-      float diffuse = max(dot(N, L), 0.0);
+
+      float diffuse = max(dot(N, L), 0.0) * u_LightOn;
 
       float ambient = 0.2;
+
       float lighting = ambient + diffuse;
       lighting = clamp(lighting, 0.0, 1.0);
 
+
       gl_FragColor = vec4(baseColor.rgb * lighting, baseColor.a);
+
 
       /*vec3 lightVector = vec3(v_VertPos) - u_lightPos;
       float r = length(lightVector);
@@ -99,6 +104,7 @@ let u_ProjectionMatrix;
 let u_ViewMatrix;
 
 let u_lightPos;
+let u_LightOn;
 
 function setupWebGL(){
   // Retrieve <canvas> element
@@ -203,6 +209,8 @@ function connectVariablesToGLSL(){
     return false;
   }
 
+  u_LightOn = gl.getUniformLocation(gl.program, 'u_LightOn');
+
 }
 
 let g_globalAngle = 0;
@@ -221,9 +229,10 @@ let g_lightAnimX = 0;
 let g_lightAnimY = 0;
 let g_lightAnimZ = 0;
 
+let g_lightOn = 1.0;
+
 function addUI(){
 
-  // TODO : fix light x y z sliders
   document.getElementById('lightXSlide').addEventListener('mousemove', function() {
     g_lightPosX = this.value;
     renderAllShapes();
@@ -244,6 +253,17 @@ function addUI(){
     renderAllShapes();
 
   });
+
+  document.getElementById('LightOn').onclick = function() {
+    {g_lightOn = 1.0};
+    renderAllShapes();
+
+  };
+    document.getElementById('LightOff').onclick = function() {
+    {g_lightOn = 0.0};
+    renderAllShapes();
+
+  };
 
   document.getElementById('AnimationOn').onclick = function() {
     {g_Animiation = true};
@@ -663,6 +683,8 @@ let g_beeLocation = new Vector3(0, 0, 0);
 function renderAllShapes(){
 
   var startTime = performance.now();
+
+  gl.uniform1f(u_LightOn, g_lightOn);
 
   /*var projMatrix = new Matrix4();
   projMatrix.setPerspective(50, canvas.width/canvas.height, 1, 100);
