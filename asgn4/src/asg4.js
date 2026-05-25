@@ -61,11 +61,18 @@ var FSHADER_SOURCE = `
       vec3 L = normalize(u_lightPos - v_VertPos.xyz);
       vec3 N = normalize(v_Normal);
 
+      //
+      vec3 V = normalize(-v_VertPos.xyz);
+      vec3 R = reflect(-L, N); 
+
+      float specAngle = max(dot(R, V), 0.0);
+      float specular = pow(specAngle, 32.0) * u_LightOn;
+
       float diffuse = max(dot(N, L), 0.0) * u_LightOn;
 
       float ambient = 0.2;
 
-      float lighting = ambient + diffuse;
+      float lighting = ambient + diffuse + specular;
       lighting = clamp(lighting, 0.0, 1.0);
 
 
