@@ -176,23 +176,25 @@ let g_normalOn = false;
 
 let g_camera = undefined;
 
-let g_lightPos = [];  
+let g_lightPosX = 0;
+let g_lightPosY = 100;  
+let g_lightPosZ = -200;  
 
 function addUI(){
 
   // TODO : fix light x y z sliders
   document.getElementById('lightXSlide').addEventListener('mousemove', function() {
-    g_lightPos[0] = this.value;
+    g_lightPosX = this.value;
     renderAllShapes();
 
   });
   document.getElementById('lightYSlide').addEventListener('mousemove', function() {
-    g_lightPos[1] = this.value;
+    g_lightPosY = this.value;
     renderAllShapes();
 
   });
   document.getElementById('lightZSlide').addEventListener('mousemove', function() {
-    g_lightPos[2] = this.value;
+    g_lightPosZ = this.value;
     renderAllShapes();
 
   });
@@ -696,14 +698,21 @@ function renderAllShapes(){
   var light = new Cube();
   light.color = [2.0, 2.0, 0.0, 1.0];
   light.textureNum = 0.0;
-  light.matrix.translate(g_lightPos[0], g_lightPos[1], g_lightPos[2])
-  light.matrix.scale(-.1, -.1, -.1);
-  light.matrix.translate(-.5, -.5, -.5);
+  //console.log(" Light Postions: ", g_lightPosX, g_lightPosY, g_lightPosZ);
+  light.matrix.translate(g_lightPosX, g_lightPosY,  g_lightPosZ);
+  light.matrix.scale(100, 10, 10);
   light.render();
   //return;
 
   var sphere = new Sphere();
-  if(g_normalOn) sphere.textureNum = 4.0;
+  sphere.color = [0.5, 0.5, 0.5, 1.0];
+  if(g_normalOn){
+    sphere.textureNum = 4.0;
+  }
+  else{
+    sphere.textureNum = 0.0;
+  }
+  sphere.matrix.scale(10, 10, 10);
   sphere.render();
 
   var bee = new Cube();
@@ -732,7 +741,6 @@ function renderAllShapes(){
   }
   //bee.matrix.scale(50, 0.1, 50);
   bee.render();
-
 
   var duration = startTime - g_PreviousTime;
   g_PreviousTime = startTime;
