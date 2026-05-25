@@ -211,8 +211,6 @@ function addUI(){
 
   };
 
-  // TODO: fix normals & buttons
-
   document.getElementById('NormalOn').onclick = function() {
     {g_normalOn = true};
     console.log("normal turn on");
@@ -596,10 +594,14 @@ function buildMap(){
 function drawWalls(walls){
   for(let i = 0; i < walls.length; i++){
     //console.log("waall[i] ", walls[i]);
-   //if(g_normalOn) walls[i].textureNum = 4.0;
+   if(g_normalOn){
+      walls[i].textureNum = 4.0;
+   }
+   else{
     walls[i].textureNum = 1.0;
+   }
     gl.uniform1i(u_Sampler, 1);
-    walls[i].renderfast();
+    walls[i].renderfastNormal();
   }
 }
 

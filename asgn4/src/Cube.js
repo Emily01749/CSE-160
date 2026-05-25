@@ -178,59 +178,82 @@ class Cube{
         this.tri.drawTriangle3Duv(verts, uvs);
     }
 
-    /*renderfast(){
-        let tri = new Triangle();
+    renderfastNormal(){
 
-        var rgba = this.color;
-
-        //gl.uniform1f(u_SelectTexture, this.textureNum);
-
-        gl.uniform4f(u_FragColor, rgba[0], rgba[1], rgba[2], rgba[3]);
-
+        gl.uniform1f(u_SelectTexture, this.textureNum);
         gl.uniformMatrix4fv(u_ModelMatrix, false, this.matrix.elements);
 
-        gl.uniform4f(u_FragColor, rgba[0]*0.9, rgba[1]*0.9, rgba[2]*0.9, rgba[3]);
-        
-        var allVertices = [];
-        allVertices = allVertices.concat([-1,-1,-1, 1,1,-1, 1,-1,-1]);
-        allVertices = allVertices.concat([-1,-1,-1, 1,1,-1, 1,-1,-1]);
-        //tri.drawTriangle3Duv([-1,-1,-1, 1,1,-1, 1,-1,-1] , [0,0, 1,1, 1,0]);
-        //tri.drawTriangle3Duv([-1,-1,-1, -1,1,-1, 1,1,-1] , [0,0, 0,1, 1,1]);
+        // Base color (no repeated shading multipliers)
+        const rgba = this.color;
+        gl.uniform4f(u_FragColor, rgba[0], rgba[1], rgba[2], rgba[3]);
 
-        //gl.uniform4f(u_FragColor, rgba[0]*0.7, rgba[1]*0.7, rgba[2]*0.7, rgba[3]);
+        const verts = [
+            // Front
+            -1,-1,-1,  1,1,-1,  1,-1,-1,
+            -1,-1,-1, -1,1,-1,  1,1,-1,
 
-        allVertices = allVertices.concat([-1,1,-1, -1,1,1, 1,1,1]);
-        allVertices = allVertices.concat([-1,1,-1, 1,1,1, 1,1,-1]);
-        //tri.drawTriangle3Duv([-1,1,-1, -1,1,1, 1,1,1], [0,0, 0,1, 1,1]);
-        //tri.drawTriangle3Duv([-1,1,-1, 1,1,1, 1,1,-1], [0,0, 1,1, 1,0]);
-        
-        //gl.uniform4f(u_FragColor, rgba[0]*0.7, rgba[1]*0.7, rgba[2]*0.7, rgba[3]);
-        
-        allVertices = allVertices.concat([-1,-1,1, 1,-1,1, 1,1,1]);
-        allVertices = allVertices.concat([-1,-1,1, 1,1,1, -1,1,1]);
-        //tri.drawTriangle3Duv([-1,-1,1, 1,-1,1, 1,1,1], [0,0, 1,0, 1,1]);
-        //tri.drawTriangle3Duv([-1,-1,1, 1,1,1, -1,1,1], [0,0, 1,1, 0,1]);
+            // Top
+            -1,1,-1, -1,1,1, 1,1,1,
+            -1,1,-1, 1,1,1, 1,1,-1,
 
-        //gl.uniform4f(u_FragColor, rgba[0]*0.7, rgba[1]*0.7, rgba[2]*0.7, rgba[3]);
-        
-        allVertices = allVertices.concat([-1,-1,-1, 1,-1,1, -1,-1,1]);
-        allVertices = allVertices.concat([-1,-1,-1, 1,-1,-1, 1,-1,1]);
-        //tri.drawTriangle3Duv([-1,-1,-1, 1,-1,1, -1,-1,1], [0,0, 1,1, 0,1]);
-        //tri.drawTriangle3Duv([-1,-1,-1, 1,-1,-1, 1,-1,1], [0,0, 1,0, 1,1]);
+            // Back
+            -1,-1,1, 1,-1,1, 1,1,1,
+            -1,-1,1, 1,1,1, -1,1,1,
 
-        //gl.uniform4f(u_FragColor, rgba[0]*0.7, rgba[1]*0.7, rgba[2]*0.7, rgba[3]);
+            // Bottom
+            -1,-1,-1, 1,-1,1, -1,-1,1,
+            -1,-1,-1, 1,-1,-1, 1,-1,1,
 
-        allVertices = allVertices.concat([-1,-1,-1, -1,-1,1, -1,1,1]);
-        allVertices = allVertices.concat([-1,-1,-1, -1,1,1, -1,1,-1]);
-        //tri.drawTriangle3Duv([-1,-1,-1, -1,-1,1, -1,1,1], [0,0, 1,0, 1,1]);
-        //tri.drawTriangle3Duv([-1,-1,-1, -1,1,1, -1,1,-1], [0,0, 1,1, 0,1]);
+            // Left
+            -1,-1,-1, -1,-1,1, -1,1,1,
+            -1,-1,-1, -1,1,1, -1,1,-1,
 
-        //gl.uniform4f(u_FragColor, rgba[0]*0.7, rgba[1]*0.7, rgba[2]*0.7, rgba[3]);
+            // Right
+            1,-1,-1, 1,1,1, 1,-1,1,
+            1,-1,-1, 1,1,-1, 1,1,1
+        ];
 
-        allVertices = allVertices.concat([1,-1,-1, 1,1,1, 1,-1,1]);
-        allVertices = allVertices.concat([1,-1,-1, 1,1,-1, 1,1,1]);
-        //tri.drawTriangle3Duv([1,-1,-1, 1,1,1, 1,-1,1], [0,0, 1,1, 1,0]);
-        //tri.drawTriangle3Duv([1,-1,-1, 1,1,-1, 1,1,1], [0,0, 0,1, 1,1]);
-        tri.drawTriangle3D(allVertices);
-    }*/
+        const uvs = [
+            0,0, 1,1, 1,0,
+            0,0, 0,1, 1,1,
+
+            0,0, 0,1, 1,1,
+            0,0, 1,1, 1,0,
+
+            0,0, 1,0, 1,1,
+            0,0, 1,1, 0,1,
+
+            0,0, 1,1, 0,1,
+            0,0, 1,0, 1,1,
+
+            0,0, 1,0, 1,1,
+            0,0, 1,1, 0,1,
+
+            0,0, 1,1, 1,0,
+            0,0, 0,1, 1,1
+        ];
+
+        const normals = [
+            0,0,-1, 0,0,-1, 0,0,-1,
+            0,0,-1, 0,0,-1, 0,0,-1,
+
+            0,0,-1, 0,0,-1, 0,0,-1,
+            0,0,-1, 0,0,-1, 0,0,-1,
+
+            0,0,1, 0,0,1, 0,0,1,
+            0,0,1, 0,0,1, 0,0,1,
+
+            0,-1,0, 0,-1,0, 0,-1,0,
+            0,-1,0, 0,-1,0, 0,-1,0,
+
+            -1,0,0, -1,0,0, -1,0,0,
+            -1,0,0, -1,0,0, -1,0,0,
+
+            1,0,0, 1,0,0, 1,0,0,
+            1,0,0, 1,0,0, 1,0,0
+        ]
+
+        //this.tri.drawTriangle3Duv(verts, uvs);
+        this.tri.drawTriangle3DuvNormal(verts, uvs, normals);
+    }
 }
