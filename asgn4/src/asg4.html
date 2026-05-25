@@ -32,7 +32,7 @@
     </div>
 
       <div style="display: inline-block"> 
-        <canvas id="webgl" width="1000" height="1000">
+        <canvas id="webgl" width="400" height="400">
         Please use a browser that supports "canvas"
         </canvas>
       </div>
@@ -49,6 +49,21 @@
     <button type="button" id="AnimationOff">Off</button>
 
     <br>
+
+    <br>
+    Noramls: 
+    <button type="button" id="NormalOn">Normal On</button>
+    <button type="button" id="NormalOff">Normal Off</button>
+
+    <br>
+
+    <br>
+    Noramls: 
+    Light X <input type="range" min="-250" max="250" value="0" class="slider" id="lightXSlide">
+    Light Y <input type="range" min="-250" max="250" value="100" class="slider" id="lightYSlide">
+    Light Z <input type="range" min="-250" max="250" value="-200" class="slider" id="lightZSlide">
+
+    <br>
     Camera Angle <input type="range" min="0" max="360" value="360" class="slider" id="cameraAngleSlide">
 
     <script src="../lib/webgl-utils.js"></script>
@@ -62,6 +77,7 @@
     <script src="ModifiedTriangle.js"></script>
     <script src="Point.js"></script>
     <script src= "Cube.js"></script>
+    <script src= "Sphere.js"></script>
     <script src= "Pyramid.js"></script>
 
   </body>

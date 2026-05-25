@@ -14,7 +14,9 @@ var VSHADER_SOURCE = `
   void main() {
     gl_Position = u_ProjectionMatrix * u_ViewMatrix * u_GlobalRotateMatrix * u_ModelMatrix * a_Position;
     v_UV = a_UV;
-    v_Normal = a_Normal;
+    //v_Normal = a_Normal;
+    v_Normal = normalize(mat3(u_ModelMatrix) * a_Normal);
+
   }`;
 
 // Fragment shader program
@@ -164,23 +166,36 @@ function connectVariablesToGLSL(){
     return false;
   }
 
-  // Get the storage location of u_FragColor
-  /*u_Size = gl.getUniformLocation(gl.program, 'u_Size');
-  if (!u_Size) {
-    console.log('Failed to get the storage location of u_Size');
-    return;
-  }*/
-
 }
 
 let g_globalAngle = 0;
 
 let g_Animiation = true;
 
+let g_normalOn = false;
+
 let g_camera = undefined;
+
+let g_lightPos = [];  
 
 function addUI(){
 
+  // TODO : fix light x y z sliders
+  document.getElementById('lightXSlide').addEventListener('mousemove', function() {
+    g_lightPos[0] = this.value;
+    renderAllShapes();
+
+  });
+  document.getElementById('lightYSlide').addEventListener('mousemove', function() {
+    g_lightPos[1] = this.value;
+    renderAllShapes();
+
+  });
+  document.getElementById('lightZSlide').addEventListener('mousemove', function() {
+    g_lightPos[2] = this.value;
+    renderAllShapes();
+
+  });
   document.getElementById('cameraAngleSlide').addEventListener('mousemove', function() {
     g_globalAngle = this.value;
     renderAllShapes();
@@ -195,6 +210,21 @@ function addUI(){
     {g_Animiation = false};
 
   };
+
+  // TODO: fix normals & buttons
+
+  document.getElementById('NormalOn').onclick = function() {
+    {g_normalOn = true};
+    console.log("normal turn on");
+
+  };
+  
+  document.getElementById('NormalOff').onclick = function() {
+    {g_normalOn = false};
+     console.log("normal turn OFF");
+
+  };
+
 }
 
 function textures(gl) {
@@ -305,7 +335,7 @@ function mouseClick(){
       let dy = ev.clientY - lastY;
 
       if(dx > 0){
-        console.log("panningRight")
+        //console.log("panningRight")
         g_camera.panRight();
       }
       if(dx < 0){
@@ -566,6 +596,7 @@ function buildMap(){
 function drawWalls(walls){
   for(let i = 0; i < walls.length; i++){
     //console.log("waall[i] ", walls[i]);
+   //if(g_normalOn) walls[i].textureNum = 4.0;
     walls[i].textureNum = 1.0;
     gl.uniform1i(u_Sampler, 1);
     walls[i].renderfast();
@@ -629,7 +660,12 @@ function renderAllShapes(){
   var sky = new Cube();
   sky.color = [1.0, 1.0, 1.0, 1.0];
   sky.matrix.scale(1000,1000,1000);
-  sky.textureNum = 1.0;
+  if(g_normalOn){
+    sky.textureNum = 4.0;
+  }
+  else{
+    sky.textureNum = 1.0;
+  }
   //gl.uniform1i(u_Sampler, 1);
   //gl.activeTexture(gl.TEXTURE0);
   //gl.bindTexture(gl.TEXTURE_2D, textures.sky);
@@ -639,8 +675,13 @@ function renderAllShapes(){
 
   //return;
   var floor = new Cube();
-  floor.color = [1.0, 1.0, 0.0, 1.0];
-  floor.textureNum = 0.0;
+  floor.color = [0.0, 1.0, 0.5, 1.0];
+  if(g_normalOn) {
+    floor.textureNum = 4.0;
+  }
+  else{
+    floor.textureNum = 0.0;
+  }
   floor.matrix.translate(0, -3, 0);
   floor.matrix.scale(50, 0.1, 50);
   //floor.matrix.translate(-.5, 0, -.5);
@@ -650,11 +691,27 @@ function renderAllShapes(){
 
   drawWalls(g_walls);
 
+  var light = new Cube();
+  light.color = [2.0, 2.0, 0.0, 1.0];
+  light.textureNum = 0.0;
+  light.matrix.translate(g_lightPos[0], g_lightPos[1], g_lightPos[2])
+  light.matrix.scale(-.1, -.1, -.1);
+  light.matrix.translate(-.5, -.5, -.5);
+  light.render();
   //return;
+
+  var sphere = new Sphere();
+  if(g_normalOn) sphere.textureNum = 4.0;
+  sphere.render();
 
   var bee = new Cube();
   bee.color = [1.0, 1.0, 0.0, 1.0];
-  bee.textureNum = 3.0;
+  if(g_normalOn) {
+    bee.textureNum = 4.0;
+  }
+  else{
+    bee.textureNum = 3.0;
+  }
   bee.matrix.translate(g_beeLocation.elements[0], g_beeLocation.elements[1], g_beeLocation.elements[2]);
   g_beeLocation.elements[1] = 5;
    
@@ -679,8 +736,8 @@ function renderAllShapes(){
   g_PreviousTime = startTime;
   var fps = 1000/duration;
 
-  sendTextToHTML("ms: " + duration.toFixed(2) + " fps: " + fps.toFixed(2) + " eye: " + g_camera.eye.elements[0] + ", " + g_camera.eye.elements[1] + ", " + g_camera.eye.elements[2]);
-
+  //sendTextToHTML("ms: " + duration.toFixed(2) + " fps: " + fps.toFixed(2) + " eye: " + g_camera.eye.elements[0] + ", " + g_camera.eye.elements[1] + ", " + g_camera.eye.elements[2]);
+  sendTextToHTML("ms: " + duration.toFixed(2) + " fps: " + fps.toFixed(2));
 }
 
 function sendTextToHTML(txt) {

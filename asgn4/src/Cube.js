@@ -26,6 +26,53 @@ class Cube{
 
         gl.uniform4f(u_FragColor, rgba[0]*0.9, rgba[1]*0.9, rgba[2]*0.9, rgba[3]);
         
+        tri.drawTriangle3DuvNormal([-1,-1,-1, 1,1,-1, 1,-1,-1] , [0,0, 1,1, 1,0], [0,0,-1, 0,0,-1, 0,0,-1]);
+        tri.drawTriangle3DuvNormal([-1,-1,-1, -1,1,-1, 1,1,-1] , [0,0, 0,1, 1,1], [0,0,-1, 0,0,-1, 0,0,-1]);
+
+        gl.uniform4f(u_FragColor, rgba[0]*0.7, rgba[1]*0.7, rgba[2]*0.7, rgba[3]);
+
+        tri.drawTriangle3DuvNormal([-1,1,-1, -1,1,1, 1,1,1], [0,0, 0,1, 1,1], [0,1,0, 0,1,0, 0,1,0]);
+        tri.drawTriangle3DuvNormal([-1,1,-1, 1,1,1, 1,1,-1], [0,0, 1,1, 1,0], [0,1,0, 0,1,0, 0,1,0]);
+
+        gl.uniform4f(u_FragColor, rgba[0]*0.7, rgba[1]*0.7, rgba[2]*0.7, rgba[3]);
+
+        tri.drawTriangle3DuvNormal([-1,-1,1, 1,-1,1, 1,1,1], [0,0, 1,0, 1,1], [0,0,1, 0,0,1, 0,0,1]);
+        tri.drawTriangle3DuvNormal([-1,-1,1, 1,1,1, -1,1,1], [0,0, 1,1, 0,1], [0,0,1, 0,0,1, 0,0,1]);
+
+        gl.uniform4f(u_FragColor, rgba[0]*0.7, rgba[1]*0.7, rgba[2]*0.7, rgba[3]);
+
+        tri.drawTriangle3DuvNormal([-1,-1,-1, 1,-1,1, -1,-1,1], [0,0, 1,1, 0,1], [0,-1,0, 0,-1,0, 0,-1,0]);
+        tri.drawTriangle3DuvNormal([-1,-1,-1, 1,-1,-1, 1,-1,1], [0,0, 1,0, 1,1], [0,-1,0, 0,-1,0, 0,-1,0]);
+
+        gl.uniform4f(u_FragColor, rgba[0]*0.7, rgba[1]*0.7, rgba[2]*0.7, rgba[3]);
+
+        tri.drawTriangle3DuvNormal([-1,-1,-1, -1,-1,1, -1,1,1], [0,0, 1,0, 1,1], [-1,0,0, -1,0,0, -1,0,0]);
+        tri.drawTriangle3DuvNormal([-1,-1,-1, -1,1,1, -1,1,-1], [0,0, 1,1, 0,1], [-1,0,0, -1,0,0, -1,0,0]);
+
+        gl.uniform4f(u_FragColor, rgba[0]*0.7, rgba[1]*0.7, rgba[2]*0.7, rgba[3]);
+
+        tri.drawTriangle3DuvNormal([1,-1,-1, 1,1,1, 1,-1,1], [0,0, 1,1, 1,0], [1,0,0, 1,0,0, 1,0,0]);
+        tri.drawTriangle3DuvNormal([1,-1,-1, 1,1,-1, 1,1,1], [0,0, 0,1, 1,1], [1,0,0, 1,0,0, 1,0,0]);
+
+
+
+    }
+
+    /*render(){
+        let tri = new Triangle();
+
+        //var xy = this.position;
+        var rgba = this.color;
+        //var size = this.size;
+
+        gl.uniform1f(u_SelectTexture, this.textureNum);
+
+        gl.uniform4f(u_FragColor, rgba[0], rgba[1], rgba[2], rgba[3]);
+        //gl.uniform1f(u_Size, size);
+        gl.uniformMatrix4fv(u_ModelMatrix, false, this.matrix.elements);
+
+        gl.uniform4f(u_FragColor, rgba[0]*0.9, rgba[1]*0.9, rgba[2]*0.9, rgba[3]);
+        
         tri.drawTriangle3Duv([-1,-1,-1, 1,1,-1, 1,-1,-1] , [0,0, 1,1, 1,0]);
         tri.drawTriangle3Duv([-1,-1,-1, -1,1,-1, 1,1,-1] , [0,0, 0,1, 1,1]);
 
@@ -71,7 +118,7 @@ class Cube{
 
         //tri.drawTriangle3D([1,-1,-1, 1,1,1, 1,-1,1]);
         //tri.drawTriangle3D([1,-1,-1, 1,1,-1, 1,1,1]);
-    }
+    }*/
 
     renderfast(){
 
