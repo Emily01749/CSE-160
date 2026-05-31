@@ -42,6 +42,20 @@ function addSphere(scene){
     );
     const sphere = new THREE.Mesh( geometry, material );
 	scene.add(sphere);
+
+    return sphere;
+}
+
+function addCylinder(scene){
+    const geometry = new THREE.CylinderGeometry( 1, 1, 1, 32 );
+	const material = new THREE.MeshPhongMaterial( { color: 0xff0000 } );
+
+	const cylinder = new THREE.Mesh( geometry, material );
+	cylinder.castShadow = true;
+	cylinder.receiveShadow = true;
+	scene.add( cylinder );
+
+    return cylinder;
 }
 
 function main(){
@@ -53,6 +67,7 @@ function main(){
 
     var cube = addCube(scene)
     var sphere = addSphere(scene)
+    var cylinder = addCylinder(scene);
 
     function animate(time) {
         //cube.rotation.x = time / 2000;
