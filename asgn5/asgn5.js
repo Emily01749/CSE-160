@@ -77,11 +77,17 @@ function main(){
 
     renderer.setAnimationLoop( animate );
 
-    const color = 0xFFFFFF;
-    const intensity = 3;
-    const light = new THREE.DirectionalLight(color, intensity);
-    light.position.set(-1, 2, 4);
-    scene.add(light);
+    //const color = 0xFFFFFF;
+    //const intensity = 3;
+    //const light = new THREE.DirectionalLight(color, intensity);
+    //light.position.set(-1, 2, 4);
+    //scene.add(light);
+
+    var spotLight = new THREE.SpotLight( 0xff2fff, 100 );
+	spotLight.name = 'spotLight';
+    //spotLight.map = textures[ 'file.jpg' ];
+    spotLight.position.set( 1, 1, 5 );
+    scene.add( spotLight );
 }
 
 main()
