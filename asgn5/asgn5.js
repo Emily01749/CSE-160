@@ -16,22 +16,32 @@ function cameraSetUp(scene){
 function addCube(scene){
 
     const loader = new THREE.TextureLoader();
-    const texture = loader.load( 'wall.jpg' );
+    const texture = loader.load('wall.jpg');
     texture.colorSpace = THREE.SRGBColorSpace;
  
     //const material = new THREE.MeshBasicMaterial({
     //    color: 0xFF8844,
     //    map: texture,
     //});
-    const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+    const geometry = new THREE.BoxGeometry( 2, 1, 1 );
     const material = new THREE.MeshPhongMaterial(
         //{color: 0x44aa88}
         {map : texture}
     );
     const cube = new THREE.Mesh( geometry, material );
-    scene.add( cube );
+    scene.add(cube);
 
     return cube;
+}
+
+function addSphere(scene){
+    const geometry = new THREE.SphereGeometry( 1, 64, 32 );
+    const material = new THREE.MeshPhongMaterial(
+        {color: 0x44aa88}
+        //{map : texture}
+    );
+    const sphere = new THREE.Mesh( geometry, material );
+	scene.add(sphere);
 }
 
 function main(){
@@ -42,10 +52,11 @@ function main(){
     document.body.appendChild( renderer.domElement );
 
     var cube = addCube(scene)
+    var sphere = addSphere(scene)
 
     function animate(time) {
-        cube.rotation.x = time / 2000;
-        cube.rotation.y = time / 1000;
+        //cube.rotation.x = time / 2000;
+        //cube.rotation.y = time / 1000;
         renderer.render( scene, camera );
     }
 
