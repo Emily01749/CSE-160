@@ -14,8 +14,20 @@ function cameraSetUp(scene){
 }
 
 function addCube(scene){
+
+    const loader = new THREE.TextureLoader();
+    const texture = loader.load( 'wall.jpg' );
+    texture.colorSpace = THREE.SRGBColorSpace;
+ 
+    //const material = new THREE.MeshBasicMaterial({
+    //    color: 0xFF8844,
+    //    map: texture,
+    //});
     const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-    const material = new THREE.MeshPhongMaterial({color: 0x44aa88});
+    const material = new THREE.MeshPhongMaterial(
+        //{color: 0x44aa88}
+        {map : texture}
+    );
     const cube = new THREE.Mesh( geometry, material );
     scene.add( cube );
 
