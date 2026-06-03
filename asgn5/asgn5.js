@@ -1,9 +1,5 @@
 import * as THREE from 'three';
 
-//import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
-//import {OBJLoader} from 'three/addons/loaders/OBJLoader.js';
-//import {MTLLoader} from 'three/addons/loaders/MTLLoader.js';
-
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 function cameraSetUp(scene){
@@ -64,6 +60,28 @@ function addCylinder(scene){
     return cylinder;
 }
 
+function addDirectionalLight(scene){
+    const color = 0xFFFFFF;
+    const intensity = 3;
+    const light = new THREE.DirectionalLight(color, intensity);
+    light.position.set(-1, 2, 4);
+    scene.add(light);
+}
+
+function addSpotlightLight(scene){
+    var spotLight = new THREE.SpotLight( 0xff2fff, 100 );
+	spotLight.name = 'spotLight';
+    //spotLight.map = textures[ 'file.jpg' ];
+    spotLight.position.set( 1, 1, 5 );
+    scene.add( spotLight );
+}
+
+function addHemisphereLight(scene){
+    const hemisphereLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 3);
+	hemisphereLight.position.set( 0, 1, 0 );
+	scene.add( hemisphereLight );
+}
+
 function main(){
     const scene = new THREE.Scene();
     const camera = cameraSetUp(scene);
@@ -72,7 +90,7 @@ function main(){
     document.body.appendChild( renderer.domElement );
 
     //var cube = addCube(scene)
-    //var sphere = addSphere(scene)
+    var sphere = addSphere(scene)
     //var cylinder = addCylinder(scene);
 
     function animate(time) {
@@ -83,45 +101,10 @@ function main(){
 
     renderer.setAnimationLoop( animate );
 
-    // Directional Light
-    // TODO: Might want to make this a function
-    // ---
-    /*const color = 0xFFFFFF;
-    const intensity = 3;
-    const light = new THREE.DirectionalLight(color, intensity);
-    light.position.set(-1, 2, 4);
-    scene.add(light);*/
-    // ---
 
-    // Spotlight Light
-    // TODO: Might want to make this a function
-    // ---
-    /*var spotLight = new THREE.SpotLight( 0xff2fff, 100 );
-	spotLight.name = 'spotLight';
-    //spotLight.map = textures[ 'file.jpg' ];
-    spotLight.position.set( 1, 1, 5 );
-    scene.add( spotLight );*/
-    // ---
-
-    // TODO: Might want to make this a function
-    // ---
-    const hemisphereLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 3);
-	hemisphereLight.position.set( 0, 1, 0 );
-	scene.add( hemisphereLight );
-    // ---
-
-    // Textures not loaded correctly
-    // ----------------------------------
-    /*const objLoader = new OBJLoader();
-    const mtlLoader = new MTLLoader();
-    mtlLoader.load('resources/indoorPlant/Low-Poly Plant_.mtl', (mtl) => {
-        mtl.preload();
-        objLoader.setMaterials(mtl);
-    objLoader.load('resources/indoorPlant/Low-Poly Plant_.obj', (root) => {
-        scene.add(root);
-    });
-    });*/
-    // ----------------------------------
+    //var directLight = addDirectionalLight(scene);
+    var spotLight = addSpotlightLight(scene);
+    //var hemisphrLight = addHemisphereLight(scene);
 
     const loader = new GLTFLoader();
     loader.load( './resources/DiffuseTransmissionPlant/DiffuseTransmissionPlant.glb', (glb) => {
