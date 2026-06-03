@@ -1,5 +1,11 @@
 import * as THREE from 'three';
 
+//import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+//import {OBJLoader} from 'three/addons/loaders/OBJLoader.js';
+//import {MTLLoader} from 'three/addons/loaders/MTLLoader.js';
+
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
 function cameraSetUp(scene){
     //const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
     const fov = 75;
@@ -65,9 +71,9 @@ function main(){
     renderer.setSize( window.innerWidth, window.innerHeight );
     document.body.appendChild( renderer.domElement );
 
-    var cube = addCube(scene)
-    var sphere = addSphere(scene)
-    var cylinder = addCylinder(scene);
+    //var cube = addCube(scene)
+    //var sphere = addSphere(scene)
+    //var cylinder = addCylinder(scene);
 
     function animate(time) {
         //cube.rotation.x = time / 2000;
@@ -77,21 +83,50 @@ function main(){
 
     renderer.setAnimationLoop( animate );
 
-    //const color = 0xFFFFFF;
-    //const intensity = 3;
-    //const light = new THREE.DirectionalLight(color, intensity);
-    //light.position.set(-1, 2, 4);
-    //scene.add(light);
+    // Directional Light
+    // TODO: Might want to make this a function
+    // ---
+    /*const color = 0xFFFFFF;
+    const intensity = 3;
+    const light = new THREE.DirectionalLight(color, intensity);
+    light.position.set(-1, 2, 4);
+    scene.add(light);*/
+    // ---
 
+    // Spotlight Light
+    // TODO: Might want to make this a function
+    // ---
     /*var spotLight = new THREE.SpotLight( 0xff2fff, 100 );
 	spotLight.name = 'spotLight';
     //spotLight.map = textures[ 'file.jpg' ];
     spotLight.position.set( 1, 1, 5 );
     scene.add( spotLight );*/
+    // ---
 
+    // TODO: Might want to make this a function
+    // ---
     const hemisphereLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 3);
 	hemisphereLight.position.set( 0, 1, 0 );
 	scene.add( hemisphereLight );
+    // ---
+
+    // Textures not loaded correctly
+    // ----------------------------------
+    /*const objLoader = new OBJLoader();
+    const mtlLoader = new MTLLoader();
+    mtlLoader.load('resources/indoorPlant/Low-Poly Plant_.mtl', (mtl) => {
+        mtl.preload();
+        objLoader.setMaterials(mtl);
+    objLoader.load('resources/indoorPlant/Low-Poly Plant_.obj', (root) => {
+        scene.add(root);
+    });
+    });*/
+    // ----------------------------------
+
+    const loader = new GLTFLoader();
+    loader.load( './resources/DiffuseTransmissionPlant/DiffuseTransmissionPlant.glb', (glb) => {
+        scene.add(glb.scene); 
+    });
 }
 
 main()
